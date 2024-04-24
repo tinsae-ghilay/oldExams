@@ -10,9 +10,9 @@
 using namespace std;
 int main(){
     Grass f = Grass(3);
-    cout << f.getBundles() << " bundles of "<< f.getPlantTyp() << " has "<<f.getCalories()<<" calories" <<endl;
+    cout << f.getBundles() << " bundles of "<< f.getType() << " has "<<f.getCalories()<<" calories" <<endl;
     Bamboo b = Bamboo(1.00,10);
-    cout << b.getAmount()<<" pieces of"<< b.getPlantTyp() << " has "<<b.getCalories()<<" calories" <<endl;
+    cout << b.getAmount()<<" pieces of"<< b.getType() << " has "<<b.getCalories()<<" calories" <<endl;
     Meat m = Meat(1.0);
     cout << m.getWeight()<<" Kilos of "<< m.getType() << " has "<<m.getCalories()<<" calories" <<endl;
 
@@ -40,5 +40,8 @@ int main(){
     p.feed(b); // can eat Bamboo
     p.feed(f); // cannot eat grass
 
+    // TODO( have to make getType a virtual function)
+
+    return 0;
 
 }

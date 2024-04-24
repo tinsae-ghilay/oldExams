@@ -15,20 +15,14 @@ using namespace std;
 class Plant :public Food{
 
 protected:
-    string plant_typ;
 public:
     Plant();
-    string getPlantTyp() const;
 
 };
 
 
 Plant::Plant() :Food(){
     this->typ = "Plant";
-}
-
-string Plant::getPlantTyp() const {
-    return  this->plant_typ;
 }
 
 
@@ -53,7 +47,7 @@ public:
 Bamboo::Bamboo(double length, int amount){
     this->amount = amount;
     this->length = length;
-    this->plant_typ = "Bamboo";
+    this->typ = "Bamboo";
 }
 int Bamboo::getAmount() const {
     return this->amount;
@@ -81,11 +75,12 @@ public:
     ~Grass() override;
     int getBundles() const;
     double getCalories() override;
+    string getType() const;
 };
 
 
 Grass::Grass(int bundle) {
-    this->plant_typ = "Grass";
+    this->typ = "Grass";
     this->bundles = bundle;
 }
 
@@ -95,6 +90,10 @@ int Grass::getBundles() const {
 
 double Grass::getCalories() {
     return this->bundles * 33.0;
+}
+
+string Grass::getType() const {
+    return this->typ;
 }
 
 Grass::~Grass() =default;

@@ -5,7 +5,7 @@
 using namespace std;
 class Food{
 protected:
-    string typ = "meat";
+    string typ = "food";
 public:
     Food();
     virtual ~Food();

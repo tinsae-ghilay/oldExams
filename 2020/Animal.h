@@ -7,7 +7,6 @@
 
 # include <string>
 # include "Plant.h" // will this work while we also use Food?
-# include <stdexcept> // may be override it later
 # include <memory>
 # include <iostream>
 
@@ -31,7 +30,6 @@ public:
     string getOrder() const;
     string getSpecies() const;
     float getWeight() const;
-    string eats() const;
 };
 Animal::Animal(float weight){
     this->weight = weight;
@@ -62,7 +60,7 @@ int Animal::feed(Food &food) {
         float w = this->getWeight();
         this->satisfy(food.getCalories());
         float w2 = this->getWeight();
-        cout << this->getSpecies()<<" liked the food, ate it and gained "<< w2-w<< " KGs" << endl;
+        cout << this->getSpecies()<<" liked the "<<food.getType()<<", ate it and gained "<< w2-w<< " KGs" << endl;
         return 1;
     }else{
 
