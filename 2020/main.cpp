@@ -15,8 +15,30 @@ int main(){
     cout << b.getAmount()<<" pieces of"<< b.getPlantTyp() << " has "<<b.getCalories()<<" calories" <<endl;
     Meat m = Meat(1.0);
     cout << m.getWeight()<<" Kilos of "<< m.getType() << " has "<<m.getCalories()<<" calories" <<endl;
+
+    // test elephant
     Elephant elephant = Elephant(400);
-    elephant.feed(m);
-    elephant.feed(f);
-    elephant.feed(b);
+    elephant.feed(m); // cannot eat meat
+    elephant.feed(f); // can eat grass
+    elephant.feed(b); // can eat bamboo
+
+    // test Badger
+    Badger bg = Badger(10);
+    bg.feed(m); // can eat meat
+    bg.feed(b); // cannot eat Bamboo
+    bg.feed(f); // can eat grass
+
+    // test Tiger
+    Tiger t = Tiger(180);
+    t.feed(m); // can eat meat
+    t.feed(b); // cannot eat Bamboo
+    t.feed(f); // cannot eat grass
+
+    // test Badger
+    Panda p = Panda(200);
+    p.feed(m); // cannot eat meat
+    p.feed(b); // can eat Bamboo
+    p.feed(f); // cannot eat grass
+
+
 }
