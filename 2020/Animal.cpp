@@ -1,28 +1,36 @@
 //
 // Created by tgk on 4/27/24.
+
+// definitions of Animal
+// definition of all, subclasses of the superclass animal here.
 //
 # include "Animal.h"
 
+// definitions of Animal
 Animal::Animal(float weight){
     this->weight = weight;
 }
-
+// adds weight to animal depending on food's calorie count
 void Animal::satisfy(double cal) {
     this->weight+=(float)(cal/this->weight);
 }
 
+// getter for weight
 float Animal::getWeight() const {
     return this->weight;
 }
 
+// getter for animal species
 string Animal::getSpecies() const {
     return this->species;
 }
 
+// getter for order of an animal
 string Animal::getOrder() const {
     return this->order;
 }
 
+// determines if an animal can eat a given foor
 bool Animal::canEat(Food &food) {
     return false;
 }
@@ -32,18 +40,19 @@ bool Animal::canEat(Food &food) {
 // although all have different food efficiencies.
 // instead I am overriding canEat() function to return boolean and control what object can consume.
 int Animal::feed(Food &food) {
-    if(food.isConsumed()){
+    if(food.isConsumed()){ /* food has been eaten by another animal */
         cout << " nothing to eat. Food has been already consumed" << endl;
         return 0;
     }
-    if(this->canEat(food)){
-        float w = this->getWeight();
+    if(this->canEat(food)){ /* animal can eat provided food */
+
+        float w = this->getWeight(); // not necessary. Just here for seeing weight difference.
         this->satisfy(food.getCalories());
         float w2 = this->getWeight();
         cout << this->getSpecies()<<" liked the "<<food.getType()<<", ate it and gained "<< w2-w<< " KGs" << endl;
-        food.setStatus(true);
-        return 1;
-    }else{
+        food.setStatus(true); // set food as eaten
+        return 1; // return
+    }else{ /* animal cannot eat food */
 
         cout << this->getSpecies()<<" doesn't like "<<food.getType() << endl;
         return 0;
@@ -53,7 +62,7 @@ int Animal::feed(Food &food) {
 Animal::~Animal() = default;
 
 
-// defn for Carnivore
+// definition for Carnivore
 Carnivorous::Carnivorous(float weight) : Animal(weight) {
 
 

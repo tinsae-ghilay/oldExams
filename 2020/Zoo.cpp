@@ -21,11 +21,12 @@ void Zoo::feedingTime(){
 }
 
 // to avoid repeating code below (see line 45+) for carnivore and herbivore
-// I am using template here. let's see if it works????
+// I am using template here. to make this polymorphic
 template<class T>
 Animal* Zoo::getHeaviest(){
     int index = -1;
     for(size_t i =0; i < this->size();i++){
+        //if(typeid(this->at(i)) == typeid(T*)){
         if(dynamic_cast<T*>(this->at(i))){ // animal is carnivore
             if(index == -1){ // our first carnivore
                 index = (int)i;
@@ -43,7 +44,6 @@ Animal* Zoo::getHeaviest(){
 
 // get heaviest carnivore
 Animal* Zoo::getHeaviestCarnivore(){
-
     return this->getHeaviest<Carnivorous>();
 }
 
@@ -55,4 +55,8 @@ Animal* Zoo::getHeaviestHerbivore(){
 Zoo::~Zoo() {
 
     cout << "Zoo has been closed."<<endl;
+}
+
+size_t Zoo::herdCount() {
+    return this->size();
 }

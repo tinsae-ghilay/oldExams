@@ -1,5 +1,7 @@
 //
 // Created by tgk on 4/23/24.
+// declares abstract class Animal and all its child classes.
+// contains child classes Carnivores, Herbivores, Panda, Elephant and Tiger all are here
 //
 
 #ifndef ANIMAL_H
@@ -14,6 +16,7 @@
 using namespace  std;
 
 // Parent class animal
+// declares Parent class Animal
 class  Animal{
 private:
     float weight;
@@ -31,7 +34,8 @@ public:
     float getWeight() const;
 };
 
-// carnivores
+// declaration
+// carnivores child class of Animal
 class Carnivorous: public Animal{
 
 
@@ -40,8 +44,8 @@ public:
 
 };
 
-
-// herbivores
+// declaration
+// herbivores child class of Animal
 class Herbivorous: public Animal{
 
 private:
@@ -51,8 +55,8 @@ public:
     explicit Herbivorous(float weight);
 
 };
-
-// elephant
+// declaration
+// elephant, inherits from Herbivores
 class Elephant: public Herbivorous{
 private:
 public:
@@ -61,7 +65,8 @@ public:
     bool canEat(Food &food) override;
 };
 
-
+// declaration
+// Panda , inherits from Herbivores
 class Panda: public Herbivorous{
 private:
 public:
@@ -70,7 +75,8 @@ public:
     bool canEat(Food &food) override;
 };
 
-
+// declaration
+// Tiger, inherits from Carnivores
 class Tiger: public Carnivorous{
 private:
 public:
@@ -79,7 +85,8 @@ public:
     bool canEat(Food &food) override;
 };
 
-// Badger
+// declaration
+// Badger, inherits from Carnivores
 class Badger: public Carnivorous{
 private:
 public:

@@ -44,11 +44,11 @@ int main(){
     zoo.addAnimal(&t);
     zoo.addAnimal(&p);
 
-    cout << "Zoo has "<< zoo.size()<< " animals now and the second(1) is "<< zoo[1]->getSpecies()<< endl;
+    cout << "Zoo has "<< zoo.herdCount()<< " animals now and the second(1) is "<< zoo.getAnimal(1)->getSpecies()<< endl;
     zoo.deleteAnimal(1);
-    cout << "Zoo has "<< zoo.size()<< " animals now and the second(1) is "<< zoo[1]->getSpecies()<< endl;
-    cout << "heavies Carnivore  in zoo is "<< zoo.getHeaviestCarnivore()->getSpecies()<< endl;
-    cout << "heavies Herbivore  in zoo is "<< zoo.getHeaviestHerbivore()->getSpecies()<< endl;
+    cout << "Zoo has "<< zoo.herdCount()<< " animals now and the second(1) is "<< zoo.getAnimal(1)->getSpecies()<< endl;
+    cout << "heaviest Carnivore  in zoo is "<< zoo.getHeaviestCarnivore()->getSpecies()<< endl;
+    cout << "heaviest Herbivore  in zoo is "<< zoo.getHeaviestHerbivore()->getSpecies()<< endl;
 
     // TODO( have to make getType a virtual function)
 
