@@ -6,23 +6,30 @@ using namespace std;
 class Food{
 protected:
     string typ = "food";
+    bool isConsumed_ = false;
 public:
     Food();
     virtual ~Food();
     virtual double getCalories();
     string getType()const;
+    bool isConsumed() const;
+    void setStatus(bool status);
 };
 
-Food::Food() =default;
-Food::~Food() {};
 
-string Food::getType() const {
-    return  this->typ;
-}
+// meat class
 
-double Food::getCalories() {
-    return 0;
-}
+class Meat: public Food{
+
+private:
+    double  weight;
+public:
+    Meat(double weight);
+    ~Meat() override;
+    double getWeight() const;
+
+    double getCalories() override;
+};
 
 
 #endif//FOOD_H

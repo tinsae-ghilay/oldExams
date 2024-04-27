@@ -1,10 +1,8 @@
 //
 // Created by tgk on 4/23/24.
 //
-#include "Plant.h"
-# include "Meat.h"
 # include <iostream>
-# include "Animal.h"
+# include "Zoo.h"
 
 
 using namespace std;
@@ -20,7 +18,7 @@ int main(){
     Elephant elephant = Elephant(400);
     elephant.feed(m); // cannot eat meat
     elephant.feed(f); // can eat grass
-    elephant.feed(b); // can eat bamboo
+    //elephant.feed(b); // can eat bamboo
 
     // test Badger
     Badger bg = Badger(10);
@@ -39,6 +37,18 @@ int main(){
     p.feed(m); // cannot eat meat
     p.feed(b); // can eat Bamboo
     p.feed(f); // cannot eat grass
+
+    Zoo zoo = Zoo();
+    zoo.addAnimal(&elephant);
+    zoo.addAnimal(&bg);
+    zoo.addAnimal(&t);
+    zoo.addAnimal(&p);
+
+    cout << "Zoo has "<< zoo.size()<< " animals now and the second(1) is "<< zoo[1]->getSpecies()<< endl;
+    zoo.deleteAnimal(1);
+    cout << "Zoo has "<< zoo.size()<< " animals now and the second(1) is "<< zoo[1]->getSpecies()<< endl;
+    cout << "heavies Carnivore  in zoo is "<< zoo.getHeaviestCarnivore()->getSpecies()<< endl;
+    cout << "heavies Herbivore  in zoo is "<< zoo.getHeaviestHerbivore()->getSpecies()<< endl;
 
     // TODO( have to make getType a virtual function)
 
