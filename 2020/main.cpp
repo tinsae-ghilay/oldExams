@@ -3,6 +3,7 @@
 //
 # include <iostream>
 # include "Zoo.h"
+# include <memory>
 
 
 using namespace std;
@@ -15,6 +16,7 @@ int main(){
     cout << m.getWeight()<<" Kilos of "<< m.getType() << " has "<<m.getCalories()<<" calories" <<endl;
 
     // test elephant
+
     Elephant elephant = Elephant(400);
     elephant.feed(m); // cannot eat meat
     elephant.feed(f); // can eat grass

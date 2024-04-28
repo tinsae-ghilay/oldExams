@@ -26,18 +26,17 @@ template<class T>
 Animal* Zoo::getHeaviest(){
     int index = -1;
     for(size_t i =0; i < this->size();i++){
-        //if(typeid(this->at(i)) == typeid(T*)){
-        if(dynamic_cast<T*>(this->at(i))){ // animal is carnivore
-            if(index == -1){ // our first carnivore
+        if(dynamic_cast<T*>(this->at(i))){ // animal is of the requested order
+            if(index == -1){ // our first animal of the requested order.
                 index = (int)i;
             }else if(this->at(i)->getWeight() > this->at(index)->getWeight()){
                 index = (int)i;
             }
         }
     }
-    if(index !=-1){ // we have carnivores and a heaviest on at that
+    if(index !=-1){ // we have carnivores and heaviest one at that
         return this->at(index);
-    }else{ // no carnivores
+    }else{ // no animals of order T( can be carnivores or Herbivores
         return nullptr;
     }
 }
@@ -52,9 +51,12 @@ Animal* Zoo::getHeaviestHerbivore(){
     return this->getHeaviest<Herbivorous>();
 }
 
+// destructor, here we can clean up heap
 Zoo::~Zoo() {
 
     cout << "Zoo has been closed."<<endl;
+    // if objects have been created on Heap, they have to be deleted here.
+
 }
 
 size_t Zoo::herdCount() {

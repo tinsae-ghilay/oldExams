@@ -41,7 +41,7 @@ bool Animal::canEat(Food &food) {
 // instead I am overriding canEat() function to return boolean and control what object can consume.
 int Animal::feed(Food &food) {
     if(food.isConsumed()){ /* food has been eaten by another animal */
-        cout << " nothing to eat. Food has been already consumed" << endl;
+        cout << "Nothing to eat. Food has been already consumed" << endl;
         return 0;
     }
     if(this->canEat(food)){ /* animal can eat provided food */
