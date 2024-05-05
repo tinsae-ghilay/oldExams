@@ -12,10 +12,14 @@
 
 # include <vector>
 # include "Animal.h"
+# include "memory"
+# include "ZooException.h"
 
 // Zoo is a custom vector<Animal> container.
 class Zoo : vector<Animal*> {
 private:
+
+    vector<unique_ptr<Food>> storage;
     // returns pointer to the heaviest animal of class type <T>
     template<class T>
     Animal* getHeaviest();
@@ -43,6 +47,7 @@ public:
    // returns the number of animal the zoo has
    size_t herdCount();
 
+   void addFood();
 };
 
 

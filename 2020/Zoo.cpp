@@ -4,7 +4,6 @@
 
 #include "Zoo.h"
 // add animal at a position
-
 int Zoo::addAnimal(Animal* animal){
     this->push_back(animal);
     return this->size()-1;
@@ -17,7 +16,20 @@ void Zoo::deleteAnimal(int index){ // delete animal from a position
     this->erase(this->begin()+index);
 }
 void Zoo::feedingTime(){
-    cout << "Please feed the animals now. they eat whenever you feed them."<< endl;
+
+    this->addFood();
+    for(auto animal: *this){
+        for(size_t i = 0; i < this->storage.size(); i++){
+            try {
+                int sat = animal->feed(*this->storage[i]);
+                if(sat){
+                    break;
+                }
+            }catch (ZooException& e){
+                cout << e.what()<<endl;
+            }
+        }
+    }
 }
 
 // to avoid repeating code below (see line 45+) for carnivore and herbivore
@@ -25,18 +37,23 @@ void Zoo::feedingTime(){
 template<class T>
 Animal* Zoo::getHeaviest(){
     int index = -1;
+    cout << ", getting heaviest....";
     for(size_t i =0; i < this->size();i++){
+        //cout << " looking at ... "<<this->at(i)->getSpecies();
         if(dynamic_cast<T*>(this->at(i))){ // animal is of the requested order
-            if(index == -1){ // our first animal of the requested order.
+            cout << " looking at -> "<<this->at(i)->getSpecies()<< " weighing " <<this->at(i)->getWeight()<<" Kgs";
+            if(index < 0){ // our first animal of the requested order.
                 index = (int)i;
             }else if(this->at(i)->getWeight() > this->at(index)->getWeight()){
                 index = (int)i;
             }
         }
     }
-    if(index !=-1){ // we have carnivores and heaviest one at that
+    if(index >= 0){ // we have carnivores and heaviest one at that
+        cout <<" found heaviest "<< this->getAnimal(index)->getOrder()<<" = ";
         return this->at(index);
     }else{ // no animals of order T( can be carnivores or Herbivores
+        cout << "Didn't find any animal in that criteria"<<endl;
         return nullptr;
     }
 }
@@ -54,11 +71,40 @@ Animal* Zoo::getHeaviestHerbivore(){
 // destructor, here we can clean up heap
 Zoo::~Zoo() {
 
-    cout << "Zoo has been closed."<<endl;
+    cout <<"Attempting to close Zoo"<<endl;
+    try {
+        for(int i = 0; i < (int) this->size(); i++){
+            if(this->storage[i]){
+                this->storage[i].reset();
+                this->storage[i].release();
+            }
+            this->at(i) = nullptr;
+            deleteAnimal(i);
+        }
+        cout << "Zoo has been closed."<<endl;
+    }catch(exception &e) {
+
+        cout <<"cannot close zoo, because some animals are active out of their fence"<<e.what() << endl;
+
+    }
     // if objects have been created on Heap, they have to be deleted here.
 
 }
 
 size_t Zoo::herdCount() {
     return this->size();
+}
+
+void Zoo::addFood() {
+    unique_ptr<Meat> m(new Meat(0.50));
+    this->storage.push_back(std::move(m));
+    unique_ptr<Grass> g(new Grass(3));
+    this->storage.push_back(std::move(g));
+    g.reset(new Grass(15));
+    this->storage.push_back(std::move(g));
+    unique_ptr<Bamboo> b(new Bamboo(100.0,10));
+    this->storage.push_back(std::move(b));
+    m.reset(new Meat(3.0));
+    this->storage.push_back(std::move(m));
+
 }

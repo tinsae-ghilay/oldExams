@@ -5,19 +5,22 @@
 // definition of all, subclasses of the superclass animal here.
 //
 # include "Animal.h"
+# include "ZooException.h"
+# include "string"
 
 // definitions of Animal
 Animal::Animal(float weight){
-    this->weight = weight;
+    this->weight_ = weight;
 }
 // adds weight to animal depending on food's calorie count
 void Animal::satisfy(double cal) {
-    this->weight+=(float)(cal/this->weight);
+    float calToWeight = ((cal*0.9*0.027)/this->weight_)*0.75; // making animal loss 25% of weight from food on exercise
+    this->weight_+=calToWeight;
 }
 
 // getter for weight
 float Animal::getWeight() const {
-    return this->weight;
+    return this->weight_;
 }
 
 // getter for animal species
@@ -41,8 +44,7 @@ bool Animal::canEat(Food &food) {
 // instead I am overriding canEat() function to return boolean and control what object can consume.
 int Animal::feed(Food &food) {
     if(food.isConsumed()){ /* food has been eaten by another animal */
-        cout << "Nothing to eat. Food has been already consumed" << endl;
-        return 0;
+        throw ZooException("Nothing to eat. Food has been already consumed");
     }
     if(this->canEat(food)){ /* animal can eat provided food */
 
@@ -54,8 +56,8 @@ int Animal::feed(Food &food) {
         return 1; // return
     }else{ /* animal cannot eat food */
 
-        cout << this->getSpecies()<<" doesn't like "<<food.getType() << endl;
-        return 0;
+        throw ZooException(this->getSpecies()+" doesn't like "+food.getType());
+
     }
 }
 

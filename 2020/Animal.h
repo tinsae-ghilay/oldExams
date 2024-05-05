@@ -19,7 +19,7 @@ using namespace  std;
 // declares Parent class Animal
 class  Animal{
 private:
-    float weight;
+    float weight_;
 protected:
     string order;
     string species;
