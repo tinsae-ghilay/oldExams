@@ -32,7 +32,7 @@ public:
    // reference to animal at index
    Animal* getAnimal(int index);
 
-   // delet an animal from Zoo
+   // delete an animal from Zoo
    void deleteAnimal(int index);
 
    // feeding time -- don't know what I am supposed to do here

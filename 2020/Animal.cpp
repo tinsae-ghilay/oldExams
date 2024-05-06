@@ -68,12 +68,12 @@ Animal::~Animal() = default;
 Carnivorous::Carnivorous(float weight) : Animal(weight) {
 
 
-    this->order = "Carnivorous";
+    this->order = "Carnivore";
 }
 
 // Herbivore
 Herbivorous::Herbivorous(float weight) : Animal(weight) {
-    this->order = "Herbivorous";
+    this->order = "Herbivore";
 }
 
 // Elephant

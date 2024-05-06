@@ -39,7 +39,6 @@ Animal* Zoo::getHeaviest(){
     int index = -1;
     cout << ", getting heaviest....";
     for(size_t i =0; i < this->size();i++){
-        //cout << " looking at ... "<<this->at(i)->getSpecies();
         if(dynamic_cast<T*>(this->at(i))){ // animal is of the requested order
             cout << " looking at -> "<<this->at(i)->getSpecies()<< " weighing " <<this->at(i)->getWeight()<<" Kgs";
             if(index < 0){ // our first animal of the requested order.
