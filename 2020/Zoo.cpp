@@ -17,7 +17,6 @@ void Zoo::deleteAnimal(int index){ // delete animal from a position
 }
 void Zoo::feedingTime(){
 
-    this->addFood();
     for(auto animal: *this){
         for(size_t i = 0; i < this->storage.size(); i++){
             try {
@@ -29,6 +28,7 @@ void Zoo::feedingTime(){
                 cout << e.what()<<endl;
             }
         }
+        cout <<"All animals have been fed for now"<<endl;
     }
 }
 
@@ -71,22 +71,7 @@ Animal* Zoo::getHeaviestHerbivore(){
 // destructor, here we can clean up heap
 Zoo::~Zoo() {
 
-    cout <<"Attempting to close Zoo"<<endl;
-    try {
-        for(int i = 0; i < (int) this->size(); i++){
-            if(this->storage[i]){
-                this->storage[i].reset();
-                this->storage[i].release();
-            }
-            this->at(i) = nullptr;
-            deleteAnimal(i);
-        }
-        cout << "Zoo has been closed."<<endl;
-    }catch(exception &e) {
-
-        cout <<"cannot close zoo, because some animals are active out of their fence"<<e.what() << endl;
-
-    }
+    cout << "Zoo has been closed."<<endl;
     // if objects have been created on Heap, they have to be deleted here.
 
 }
@@ -95,16 +80,8 @@ size_t Zoo::herdCount() {
     return this->size();
 }
 
-void Zoo::addFood() {
-    unique_ptr<Meat> m(new Meat(0.50));
-    this->storage.push_back(std::move(m));
-    unique_ptr<Grass> g(new Grass(3));
-    this->storage.push_back(std::move(g));
-    g.reset(new Grass(15));
-    this->storage.push_back(std::move(g));
-    unique_ptr<Bamboo> b(new Bamboo(100.0,10));
-    this->storage.push_back(std::move(b));
-    m.reset(new Meat(3.0));
-    this->storage.push_back(std::move(m));
+void Zoo::addFood(unique_ptr<Food> food) {
+
+    this->storage.push_back(std::move(food));
 
 }

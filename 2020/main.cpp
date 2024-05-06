@@ -3,7 +3,6 @@
 //
 # include <iostream>
 # include "Zoo.h"
-# include <memory>
 
 
 using namespace std;
@@ -22,9 +21,15 @@ int main(){
     Panda p = Panda(200);
     Elephant e = Elephant(850);
 
+
     // zoo, three foods and three animals
     Zoo zoo = Zoo();
     // adding food to zoo storage
+    zoo.addFood(make_unique<Meat>(0.50));
+    zoo.addFood(make_unique<Grass>(3));
+    zoo.addFood(make_unique<Grass>(6));
+    zoo.addFood(make_unique<Bamboo>(100.0,10));
+    zoo.addFood(make_unique<Meat>(5.0));
 
     // adding animals to zoo
     zoo.addAnimal(&elephant);

@@ -47,7 +47,7 @@ public:
    // returns the number of animal the zoo has
    size_t herdCount();
 
-   void addFood();
+   void addFood(unique_ptr<Food> food);
 };
 
 
