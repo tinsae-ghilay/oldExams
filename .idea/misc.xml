@@ -4,6 +4,7 @@
   <component name="MakefileSettings">
     <option name="linkedExternalProjectsSettings">
       <MakefileProjectSettings>
+        <option name="buildDirectory" value="$PROJECT_DIR$/2021" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/2020" />
         <option name="modules">
           <set>
