@@ -25,7 +25,6 @@ public:
     void setSpeed(int speed);
 
     void accelerate(int to);
-    void decelerate(int target_speed);
 
     void engageBreaks(int fin);
 
