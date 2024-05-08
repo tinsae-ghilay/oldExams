@@ -4,15 +4,14 @@
 
 # include "Robot.h"
 # include <iostream>
-using namespace std;
 
 Robot::Robot() {
     this->motor = Motor::getInstance();
     this->id_ = 0;
 }
 Robot::~Robot(){
-    for(auto item = this->sensors.begin(); item != this->sensors.end(); item++){
-        delete item->second;
+    for(auto [key,val]:this->sensors){
+        delete this->sensors[key];
     }
     delete motor;
 }
@@ -41,25 +40,26 @@ void Robot::deleteSensor(int id){
 void Robot::eventLoop(){
     int i = 0;
     this->motor->turnOn();
-    while(i < 30){
+    while(i < 15){
         int stat= 0;
         for(const auto& [key, value] : this->sensors){
             try{
                 int s_stat = value->checkSensor();
                 cout <<*value<<" : Error state -  "<< value->getErrorState()<< endl;
+                sleep(1);
                 if(s_stat > stat){
                     stat = value->checkSensor();
                 }
             }catch(CriticalDangerException &e){
 
                 cout <<*value <<" : "<< e.what() << endl;
+                sleep(1);
                 try {
                     value->reset();
                 }catch(InternalErrorException& e){
                     cout <<*value <<" : "<<  e.what() << endl;
                     sleep(1);
                     this->motor->emergencyBreak();
-                    sleep(1);
                     cout << "Restarting motor" << endl;
                     sleep(1);
                     this->motor->turnOn();
@@ -68,26 +68,26 @@ void Robot::eventLoop(){
             }catch (InternalErrorException &e){
 
                 cout <<*value <<" : "<< e.what() << endl;
+                sleep(1);
                 // reduce speed.
                 int speed = (this->motor->getSpeed()/2<5)? 5:this->motor->getSpeed()/2;
-                cout <<"Reducing speed to "<< speed<<"0" << endl;
+                cout <<"Reduced speed to "<< speed<<" RPM" << endl;
                 this->motor->setSpeed(speed);
                 sleep(1);
-                cout << "current speed = "<< this->motor->getSpeed() << "0 : Sensor status = "<< stat<< endl;
             }
-            sleep(1);
         }
-        if(this->motor->getSpeed() == 0){
+        if(this->motor->getSpeed()==0){
             this->motor->accelerate();
         }else{
             this->motor->setSpeed(this->motor->getSpeed()*2);
         }
-        cout << "current speed = "<< this->motor->getSpeed() << "0 : Sensor status = "<< stat<< endl;
+        cout << "current speed = "<< this->motor->getSpeed() << " RPM : Sensor status = "<< stat<< endl;
         sleep(1);
         // motor speed can be the speed it has / stat. thus, the higher the stat-> the lower the speed.
         i++;
     }
 }
+
 Robot* Robot::getInstance() {
     static Robot* Instance_;
     if(Instance_){

@@ -13,21 +13,21 @@
 
 class RobotException: public std::runtime_error{
 public:
-    RobotException(const std::string& msg);
+    explicit RobotException(const std::string& msg);
 };
 
 
 // Critical
 class CriticalDangerException: public RobotException{
 public:
-    CriticalDangerException(const std::string& msg);
+    explicit CriticalDangerException(const std::string& msg);
 };
 
 // Internal
 
 class InternalErrorException: public RobotException{
 public:
-    InternalErrorException(const std::string& msg);
+    explicit InternalErrorException(const std::string& msg);
 };
 
 

@@ -11,8 +11,8 @@ RobotException::RobotException(const std::string &msg): std::runtime_error(msg) 
 // critical
 
 
-CriticalDangerException::CriticalDangerException(const std::string &msg): RobotException("CRITICAL : "+msg){}
+CriticalDangerException::CriticalDangerException(const std::string &msg): RobotException("CRITICAL ERROR : "+msg){}
 
 // Internal
 
-InternalErrorException::InternalErrorException(const std::string &msg): RobotException("INTERNAL : "+msg){}
+InternalErrorException::InternalErrorException(const std::string &msg): RobotException("INTERNAL ERROR : "+msg){}
