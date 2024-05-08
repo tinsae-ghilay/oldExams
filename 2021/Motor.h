@@ -13,6 +13,7 @@ class Motor {
 private:
 
     int speed_ = 0;
+    int max_speed = 7200;
     bool on = false;
 
     Motor();
@@ -23,7 +24,10 @@ public:
 
     void setSpeed(int speed);
 
-    void accelerate();
+    void accelerate(int to);
+    void decelerate(int target_speed);
+
+    void engageBreaks(int fin);
 
     void turnOn();
 

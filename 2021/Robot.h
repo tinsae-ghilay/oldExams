@@ -9,6 +9,7 @@
 # include "RobotException.h"
 #include <unistd.h>
 # include "Motor.h"
+# include <memory>
 
 class Robot {
 

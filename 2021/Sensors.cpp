@@ -70,7 +70,7 @@ UltrasonicSensor::UltrasonicSensor(){
 }
 
 int UltrasonicSensor::checkSensor() {
-    int rnd = random() % 10;
+    int rnd = (int)random() % 10;
     if(rnd == 1){ // 1 = 1/10 = 10% probability for critical exception
         this->setErrorState(true);
         // throw CriticalDangerException
@@ -82,14 +82,15 @@ int UltrasonicSensor::checkSensor() {
         throw InternalErrorException("sensor not working within required parameters.");
 
     }else{
-        return random() % this->max;
+        return (int)random() % this->max;
     }
 }
 
 void UltrasonicSensor::reset() {
-    int rnd = random()%10;
+    int rnd = (int)random()%10;
     if(rnd < 6){ // 6/10 = 60 % chance
         this->setErrorState(false);
+        cout << *this << "Successfully reset."<<endl;
 
     }else{
         // throw InternalErrorException
@@ -103,7 +104,7 @@ LaserSensor::LaserSensor(){
     this->is ="Laser Sensor ";
 }
 int LaserSensor::checkSensor() {
-    int rnd = random() % 10;
+    int rnd = (int)random() % 10;
     if(rnd < 2){ // 0 and 1 = 2/10 = 20% probability for critical exception
         this->setErrorState(true);
         // throw CriticalDangerException
@@ -115,12 +116,12 @@ int LaserSensor::checkSensor() {
         throw InternalErrorException("Beam out of focus.");
 
     }else{
-        return random() % this->max;
+        return (int)random() % this->max;
     }
 }
 
 void LaserSensor::reset() {
-    int rnd = random()%10;
+    int rnd = (int)random()%10;
     if(rnd < 5){ // 6/10 = 60 % chance
         this->setErrorState(false);
 
@@ -136,7 +137,7 @@ CameraSensor::CameraSensor(){
     this->is ="Camera Sensor ";
 }
 int CameraSensor::checkSensor() {
-    int rnd = random() % 20;
+    int rnd = (int)random() % 20;
     if(rnd < 5){ // 1 = 1/10 = 10% probability for critical exception
         this->setErrorState(true);
         // throw CriticalDangerException
@@ -148,12 +149,12 @@ int CameraSensor::checkSensor() {
         throw InternalErrorException("unable to focus view.");
 
     }else{
-        return random() % this->max;
+        return (int)random() % this->max;
     }
 }
 
 void CameraSensor::reset() {
-    int rnd = random()%10;
+    int rnd = (int)random()%10;
     if(rnd < 6){ // 6/10 = 60 % chance
         this->setErrorState(false);
 
