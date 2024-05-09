@@ -110,6 +110,7 @@ void Robot::eventLoop(){
     cout << "Test done in "<<end-start<< " seconds" << endl;
 }
 
+// this is how we get Instance of Robot.( Only one Instance of robot object exists )
 Robot* Robot::getInstance() {
     static Robot* Instance_;
     if(Instance_){

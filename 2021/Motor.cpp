@@ -107,7 +107,7 @@ void Motor::selfTest() {
     cout << "Off:";
     sleep(1);
     cout << " Motor was tested successfully"<<endl;
-}
+} // end of motor Test
 
 
 // this class is a singleton object. there exists (in our case) only one motor
@@ -116,7 +116,7 @@ Motor *Motor::getInstance() {
     static Motor* Instance_;
     if(Instance_){ // Instance already running
         return Instance_;
-    }else{
+    }else{ // Instance needs to be created
         Instance_ = new Motor();
         return  Instance_;
     }
