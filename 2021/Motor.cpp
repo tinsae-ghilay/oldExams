@@ -25,7 +25,7 @@ void Motor::setSpeed(int speed) {
     }
 }
 
-// increases motor speed by a 100 every second
+// increases motor speed * 3 every sec.
 void Motor::accelerate(int to) {
 
     if(to > this->getSpeed()) {

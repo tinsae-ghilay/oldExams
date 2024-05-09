@@ -55,23 +55,23 @@ void Robot::eventLoop(){
     int i = 0;
     time_t start = time(nullptr);
     this->motor->turnOn();
-    while(i < 7){
+    while(i < 7){ // can be any number. the higher the number -> the longer the event snapshot
         int stat= 0; // sensor state initially 0, before we get first data.
         for(const auto& [key, value] : this->sensors){
-            try{
+            try{ // I am not sure if the catch clauses
                 int s_stat = value->checkSensor(); // retrieve sensor state
                 cout <<*value<<" : Error state -  "<< value->getErrorState()<< endl;
                 sleep(1);
                 if(s_stat > stat){ // sensor state is the highest of previous sensor states
                     stat = value->checkSensor();
                 }
-            }catch(CriticalDangerException &e){ // critical error exception while checking sensor
+            }catch(const CriticalDangerException &e){ // critical error exception while checking sensor
 
                 cout <<*value <<" : "<< e.what() << endl;
                 sleep(1);
                 try { // reset sensor
                     value->reset();
-                }catch(InternalErrorException& e){ // error while resetting sensor
+                }catch(const InternalErrorException& e){ // error while resetting sensor
                     cout <<*value <<" : "<<  e.what() << endl;
                     sleep(1);
                     // engage motor breaks and stop motor
@@ -82,7 +82,7 @@ void Robot::eventLoop(){
                     this->motor->turnOn();
                 }
 
-            }catch (InternalErrorException &e){ // internal error exception
+            }catch (const InternalErrorException &e){ // internal error exception
 
                 cout <<*value <<" : "<< e.what() << endl;
                 sleep(1);
@@ -97,11 +97,12 @@ void Robot::eventLoop(){
         }
         // motor might have reduced speed -> get it back to speed
         this->motor->accelerate(7200/*max speed of motor*/);
-        cout << "current speed = "<< this->motor->getSpeed() << " RPM : Sensor status :=: "<< stat<< endl;
+        cout << "current speed = "<< this->motor->getSpeed() << " RPM : Sensor status = "<< stat<< endl;
         sleep(1);
-        // motor speed can be the speed it has / stat. thus, the higher the stat-> the lower the speed.
         i++;
     }
+    cout << "Done testing parameters: ending process"<<endl;
+    sleep(1);
     this->motor->engageBreaks(0);
     this->motor->turnOff();
     time_t end = time(nullptr);
