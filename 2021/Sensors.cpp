@@ -74,12 +74,12 @@ int UltrasonicSensor::checkSensor() {
     if(rnd == 1){ // 1 = 1/10 = 10% probability for critical exception
         this->setErrorState(true);
         // throw CriticalDangerException
-        throw CriticalDangerException("Movement detected in close proximity.");
+        throw CriticalDangerException("UltrasonicSensor-> Movement detected in close proximity.");
 
     }else if(rnd == 2 || rnd == 3) { // 2 & 3  (1/10) + (1/10)  = 20% probability for internal error
         this->setErrorState(true);
         // throw InternalErrorException
-        throw InternalErrorException("sensor not working within required parameters.");
+        throw InternalErrorException("UltrasonicSensor  not working within required parameters.");
 
     }else{
         return (int)random() % this->max;
@@ -88,13 +88,13 @@ int UltrasonicSensor::checkSensor() {
 
 void UltrasonicSensor::reset() {
     int rnd = (int)random()%10;
-    if(rnd < 6){ // 6/10 = 60 % chance
+    if(rnd < 6){ // 0,1,2,3,4,5 = 6(1/10) = 60 % chance
         this->setErrorState(false);
-        cout << *this << "Successfully reset."<<endl;
+        cout << *this << "Reset Successfully"<<endl;
 
     }else{
         // throw InternalErrorException
-        throw InternalErrorException("Unable to reset sensor.");
+        throw InternalErrorException("Unable to reset UltrasonicSensor.");
     }
 }
 
@@ -105,15 +105,15 @@ LaserSensor::LaserSensor(){
 }
 int LaserSensor::checkSensor() {
     int rnd = (int)random() % 10;
-    if(rnd < 2){ // 0 and 1 = 2/10 = 20% probability for critical exception
+    if(rnd == 0 || rnd == 1){ // 0 and 1 = 2/10 = 20% probability for critical exception
         this->setErrorState(true);
         // throw CriticalDangerException
-        throw CriticalDangerException("Unable to determine distance.");
+        throw CriticalDangerException("Laser Sensor-> Unable to determine distance.");
 
     }else if(rnd == 2) { // 2   1/10 = 10% probability for internal error
         this->setErrorState(true);
         // throw InternalErrorException
-        throw InternalErrorException("Beam out of focus.");
+        throw InternalErrorException("Laser Sensor-> Beam out of focus.");
 
     }else{
         return (int)random() % this->max;
@@ -122,12 +122,13 @@ int LaserSensor::checkSensor() {
 
 void LaserSensor::reset() {
     int rnd = (int)random()%10;
-    if(rnd < 5){ // 6/10 = 60 % chance
+    if(rnd <5 ){ // 0,1,2,3,4 = 5(1/10) = 50 % chance
         this->setErrorState(false);
+        cout << *this << "Reset Successfully"<<endl;
 
     }else{
         // throw InternalErrorException
-        throw InternalErrorException("Unable to reset sensor.");
+        throw InternalErrorException("Unable to reset Laser Sensor.");
     }
 }
 
@@ -137,16 +138,16 @@ CameraSensor::CameraSensor(){
     this->is ="Camera Sensor ";
 }
 int CameraSensor::checkSensor() {
-    int rnd = (int)random() % 20;
-    if(rnd < 5){ // 1 = 1/10 = 10% probability for critical exception
+    int rnd = (int)random() % 10;
+    if(rnd == 0){ // 1 = 1/10 = 10% probability for critical exception
         this->setErrorState(true);
         // throw CriticalDangerException
-        throw CriticalDangerException("View blocked.");
+        throw CriticalDangerException("Camera Sensor-> View blocked.");
 
-    }else if(rnd > 4 && rnd < 8) { // 2 & 3  (1/10) + (1/10)  = 20% probability for internal error
+    }else if(rnd == 1 || rnd ==2) { // 1/10 + 1/10   = 20% probability for internal error
         this->setErrorState(true);
         // throw InternalErrorException
-        throw InternalErrorException("unable to focus view.");
+        throw InternalErrorException("Camera Sensor-> unable to focus view.");
 
     }else{
         return (int)random() % this->max;
@@ -155,11 +156,13 @@ int CameraSensor::checkSensor() {
 
 void CameraSensor::reset() {
     int rnd = (int)random()%10;
-    if(rnd < 6){ // 6/10 = 60 % chance
+    if(rnd > 4){ // 0,1,2,3 = 4(1/10) = 40 % chance
         this->setErrorState(false);
+        cout << *this << "Reset Successfully"<<endl;
 
     }else{
         // throw InternalErrorException
+        throw InternalErrorException("Unable to reset Camera Sensor.");
     }
 }
 

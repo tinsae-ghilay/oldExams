@@ -13,26 +13,27 @@ class Motor {
 private:
 
     int speed_ = 0;
-    int max_speed = 7200;
     bool on = false;
 
     Motor();
 
 public:
+    static const int MAX_SPEED = 7200;
+    static const int MIN_SPEED = 200;
 
     int getSpeed() const;
 
     void setSpeed(int speed);
 
-    void accelerate(int to);
+    //void accelerate(int to);
 
     void engageBreaks(int fin);
 
-    void turnOn();
+    void runSlow(const string& why);
 
-    void turnOff();
+    //void turnOff();
 
-    void toggleSwitch();
+    //void toggleSwitch();
 
     void emergencyBreak();
 

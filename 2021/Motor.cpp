@@ -13,20 +13,18 @@ int Motor::getSpeed() const {
 // setter
 void Motor::setSpeed(int speed) {
 
-    if(!this->on){
-        this->on = true;
+    if(speed < 0){
+        this->speed_ = Motor::MIN_SPEED;
     }
-    if(speed > this->max_speed){
-        this->speed_ = this->max_speed;
-    }else if(speed < 0){
-        emergencyBreak();
+    if(speed > Motor::MAX_SPEED){
+        this->speed_ = Motor::MAX_SPEED;
     }else{
         this->speed_= speed;
     }
 }
 
 // increases motor speed * 3 every sec.
-void Motor::accelerate(int to) {
+/*void Motor::accelerate(int to) {
 
     if(to > this->getSpeed()) {
         while (this->on && this->getSpeed() < to) {
@@ -36,36 +34,33 @@ void Motor::accelerate(int to) {
         }
         cout<< endl;
     }
-}
+}*/
 
 // turns motor on
-void Motor::turnOn() {
+/*void Motor::turnOn() {
 
     this->on=true;
     this->setSpeed(50);
     cout << "Motor turned On" << endl;
-    this->accelerate(this->max_speed);
+    this->accelerate(Motor::MAX_SPEED);
 }
 
 // turns motor off
 void Motor::turnOff() {
     this->on= false;
     cout << "Motor turned off" << endl;
-}
+}*/
 
 // toggles motor on <-> off
-void Motor::toggleSwitch() {
+/*void Motor::toggleSwitch() {
     this->on = !this->on;
-}
+}*/
 
 // stops motor with breaking effect
 void Motor::emergencyBreak() {
 
-    cout << "Emergency breaking" <<endl;
-    engageBreaks(0);
-    cout<<"Emergency stop! ";
-    sleep(1);
-    this->turnOff();
+    this->setSpeed(0);
+    cout<<"EMERGENCY STOP!!! ";
 }
 
 
@@ -78,14 +73,6 @@ void Motor::selfTest() {
     sleep(1);
     cout<<"motor decoupled from robot"<<endl;
     sleep(1);
-    if(!this->on){
-        this->toggleSwitch(); // turn off or on
-        this->setSpeed(10);
-        cout<<"motor turned on"<<endl;
-        sleep(1);
-        cout <<"\r"<< "speed = "<<this->getSpeed()<<" RPM"<<flush;
-
-    }
     while(this->getSpeed()<300){
         sleep(1);
         this->setSpeed(this->getSpeed()*2);
@@ -103,7 +90,7 @@ void Motor::selfTest() {
     sleep(1);
     cout <<" rpm: -- Full stop --"<<endl;
     sleep(1);
-    toggleSwitch(); // off
+    //toggleSwitch(); // off
     cout << "Off:";
     sleep(1);
     cout << " Motor was tested successfully"<<endl;
@@ -132,5 +119,15 @@ void Motor::engageBreaks(int fin) {
         cout <<"\r"<< "Decelerating ....  " << this->getSpeed() << " RPM"<<flush;
     }
     cout << endl;
+}
+
+void Motor::runSlow(const string &why) {
+
+    cout << why<<endl;
+    if(this->getSpeed()> Motor::MIN_SPEED){ // motor running faster than minimum
+        // set motor speed to minimum
+        this->setSpeed(Motor::MIN_SPEED);
+    }
+
 }
 
