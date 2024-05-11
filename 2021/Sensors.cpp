@@ -30,7 +30,6 @@ void Sensor::reset(){
 }
 
 
-
 void Sensor::setErrorState(bool state){
     this->error_state = state;
 }
@@ -54,10 +53,7 @@ void Sensor::activate() {
         }
         sleep(1);
         dur++;
-
     }
-
-
 }
 
 
@@ -80,7 +76,6 @@ int UltrasonicSensor::checkSensor() {
         this->setErrorState(true);
         // throw InternalErrorException
         throw InternalErrorException("UltrasonicSensor  not working within required parameters.");
-
     }else{
         return (int)random() % this->max;
     }

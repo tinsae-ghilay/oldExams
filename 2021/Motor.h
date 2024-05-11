@@ -25,18 +25,6 @@ public:
 
     void setSpeed(int speed);
 
-    //void accelerate(int to);
-
-    void engageBreaks(int fin);
-
-    void runSlow(const string& why);
-
-    //void turnOff();
-
-    //void toggleSwitch();
-
-    void emergencyBreak();
-
     void selfTest();
 
     static Motor *getInstance();

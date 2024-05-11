@@ -23,46 +23,6 @@ void Motor::setSpeed(int speed) {
     }
 }
 
-// increases motor speed * 3 every sec.
-/*void Motor::accelerate(int to) {
-
-    if(to > this->getSpeed()) {
-        while (this->on && this->getSpeed() < to) {
-            this->setSpeed(this->getSpeed() * 3);
-            cout <<"\r"<< "Accelerating .... Current speed = " << this->getSpeed() << " RPM"<<flush;
-            sleep(1);
-        }
-        cout<< endl;
-    }
-}*/
-
-// turns motor on
-/*void Motor::turnOn() {
-
-    this->on=true;
-    this->setSpeed(50);
-    cout << "Motor turned On" << endl;
-    this->accelerate(Motor::MAX_SPEED);
-}
-
-// turns motor off
-void Motor::turnOff() {
-    this->on= false;
-    cout << "Motor turned off" << endl;
-}*/
-
-// toggles motor on <-> off
-/*void Motor::toggleSwitch() {
-    this->on = !this->on;
-}*/
-
-// stops motor with breaking effect
-void Motor::emergencyBreak() {
-
-    this->setSpeed(0);
-    cout<<"EMERGENCY STOP!!! ";
-}
-
 
 
 // to do test of this class
@@ -107,27 +67,5 @@ Motor *Motor::getInstance() {
         Instance_ = new Motor();
         return  Instance_;
     }
-}
-
-// engages motor breaks to reduce speed
-void Motor::engageBreaks(int fin) {
-    sleep(1);
-    cout <<"Motor Breaks engaged at "<<this->getSpeed()<<" RPM"<<endl;
-    while(this->speed_>fin){
-        this->speed_/=5;
-        sleep(1);
-        cout <<"\r"<< "Decelerating ....  " << this->getSpeed() << " RPM"<<flush;
-    }
-    cout << endl;
-}
-
-void Motor::runSlow(const string &why) {
-
-    cout << why<<endl;
-    if(this->getSpeed()> Motor::MIN_SPEED){ // motor running faster than minimum
-        // set motor speed to minimum
-        this->setSpeed(Motor::MIN_SPEED);
-    }
-
 }
 

@@ -28,6 +28,7 @@ public:
 
     void setErrorState(bool state);
 
+    // for testing sensors
     void activate();
 };
 

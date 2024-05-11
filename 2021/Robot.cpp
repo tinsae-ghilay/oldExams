@@ -38,7 +38,7 @@ Sensor* Robot::getSensor(int id){
     }
 }
 
-// deletes sensor
+// deletes sensor by id
 void Robot::deleteSensor(int id){
     auto ssr = this->sensors.find(id);
     if(ssr!= this->sensors.end()){
@@ -68,7 +68,6 @@ void Robot::eventLoop(){
                 // Die Rückgabewerte der Sensoren sind eine Zahl zwischen 0 und 100,
                 int s_state = sensor->checkSensor();
 
-                // je nach Schwere der entdeckten Gefahr (0 bedeutet keine Gefahr und 100 bedeutet sehr große Gefahr).
                 // Nachdem alle Sensoren abgefragt wurden, wird der höchste gemeldete Gefahrenlevel verwendet,
                 // um die Geschwindigkeit des Motors zu setzen. (sehe unten)
                 if (s_state > state) {
@@ -78,6 +77,7 @@ void Robot::eventLoop(){
                 // reset() wird für jeden fehlerhaften Sensor nur einmal pro Iteration ausgeführt
                 if (sensor->getErrorState()) {
                     cout << "Resetting : ";
+                    // reset motor
                     sensor->reset();
                     state = 0;
                 }
@@ -103,7 +103,8 @@ void Robot::eventLoop(){
             catch(CriticalDangerException& e){
 
                 // stop motor- >speed to 0.
-                this->motor->emergencyBreak();
+                cout<<"EMERGENCY STOP!!! ";
+                this->motor->setSpeed(0);
                 cout << e.what()<<endl;
 
                 // 3 Iterationen der Event-Loop -> implemented here internally by updating i
@@ -118,6 +119,7 @@ void Robot::eventLoop(){
             }
 
         }
+        // je nach Schwere der entdeckten Gefahr (0 bedeutet keine Gefahr und 100 bedeutet sehr große Gefahr).
         // der höchste gemeldete Gefahrenlevel wird verwendet, um die Geschwindigkeit des Motors zu setzen.
         float factor = 1 - (float) state / 100;
         int speed = (int)((factor * Motor::MAX_SPEED) + Motor::MIN_SPEED);
