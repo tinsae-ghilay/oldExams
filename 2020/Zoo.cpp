@@ -6,7 +6,7 @@
 // add animal at a position
 int Zoo::addAnimal(Animal* animal){
     this->push_back(animal);
-    return this->size()-1;
+    return (int)this->size()-1;
 };
 // get animal at a position
 Animal* Zoo::getAnimal(int index){
@@ -18,9 +18,9 @@ void Zoo::deleteAnimal(int index){ // delete animal from a position
 void Zoo::feedingTime(){
 
     for(auto animal: *this){
-        for(size_t i = 0; i < this->storage.size(); i++){
+        for(const auto & i : this->storage){
             try {
-                int sat = animal->feed(*this->storage[i]);
+                int sat = animal->feed(*i);
                 if(sat){
                     break;
                 }
@@ -37,19 +37,19 @@ void Zoo::feedingTime(){
 template<class T>
 Animal* Zoo::getHeaviest(){
     int index = -1;
-    cout << ", getting heaviest....";
+
     for(size_t i =0; i < this->size();i++){
         if(dynamic_cast<T*>(this->at(i))){ // animal is of the requested order
-            cout << " looking at -> "<<this->at(i)->getSpecies()<< " weighing " <<this->at(i)->getWeight()<<" Kgs";
-            if(index < 0){ // our first animal of the requested order.
+            if(index < 0){
                 index = (int)i;
-            }else if(this->at(i)->getWeight() > this->at(index)->getWeight()){
+            }
+            if(this->at(i)->getWeight() > this->at(index)->getWeight()){
                 index = (int)i;
             }
         }
     }
     if(index >= 0){ // we have carnivores and heaviest one at that
-        cout <<" found heaviest "<< this->getAnimal(index)->getOrder()<<" = ";
+
         return this->at(index);
     }else{ // no animals of order T( can be carnivores or Herbivores
         cout << "Didn't find any animal in that criteria"<<endl;
