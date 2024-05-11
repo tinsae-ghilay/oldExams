@@ -55,6 +55,8 @@ void Robot::deleteSensor(int id){
  */
 void Robot::eventLoop(){
     int i = 0;
+
+    // anfangs laufzeit
     time_t start = time(nullptr);
 
     while(i < 30){
@@ -127,8 +129,9 @@ void Robot::eventLoop(){
         cout << "current speed = "<< this->motor->getSpeed() << " RPM"<< endl;
         i++;
     }
-    // ending test
+    // beendung der test
     this->motor->setSpeed(0);
+    // end des laufzeit
     time_t end = time(nullptr);
 
     cout << "Test done in "<<end-start<< " seconds" << endl;

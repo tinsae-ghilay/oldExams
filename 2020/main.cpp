@@ -9,17 +9,17 @@ using namespace std;
 int main(){
 
     // creating animal instances
-    Elephant elephant = Elephant(800);
+    auto elephant = new Elephant(800);
 
     // test Badger
-    Badger b = Badger(10);
+    auto b = new Badger(10);
 
     // test Tiger
-    Tiger t = Tiger(180);
+    auto t = new Tiger(180);
 
     // test Badger
-    Panda p = Panda(200);
-    Elephant e = Elephant(850);
+    auto p = new Panda(200);
+    auto  e = new Elephant(850);
 
 
     // zoo, three foods and three animals
@@ -32,11 +32,11 @@ int main(){
     zoo.addFood(make_unique<Meat>(5.0));
 
     // adding animals to zoo
-    zoo.addAnimal(&elephant);
-    zoo.addAnimal(&b);
-    zoo.addAnimal(&t);
-    zoo.addAnimal(&p);
-    zoo.addAnimal(&e);
+    zoo.addAnimal(elephant);
+    zoo.addAnimal(b);
+    zoo.addAnimal(t);
+    zoo.addAnimal(p);
+    zoo.addAnimal(e);
     // feed animals.
     zoo.feedingTime();
 

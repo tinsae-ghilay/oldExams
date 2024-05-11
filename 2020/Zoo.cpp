@@ -32,9 +32,9 @@ void Zoo::feedingTime(){
     }
 }
 
-// to avoid repeating code below (see line 45+) for carnivore and herbivore
+// to avoid repeating code below (see line 60+) for carnivore and herbivore
 // I am using template here. to make this polymorphic
-template<class T>
+template<class T> // type T for either Carnivore or Herbivore
 Animal* Zoo::getHeaviest(){
     int index = -1;
 
@@ -70,8 +70,13 @@ Animal* Zoo::getHeaviestHerbivore(){
 // destructor, here we can clean up heap
 Zoo::~Zoo() {
 
+    // delete all animals first
+    for(auto & i : *this){
+        delete i;
+    }
+    // clear vector
+    this->clear();
     cout << "Zoo has been closed."<<endl;
-    // if objects have been created on Heap, they have to be deleted here.
 
 }
 
