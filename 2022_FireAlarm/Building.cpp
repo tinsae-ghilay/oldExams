@@ -49,8 +49,7 @@ int Building::addSensor(int floor, Sensor* sensor){
     // and second digit as sensor type
     int key = this->encodeID(floor,sensor->getType());
     // unique pointer to store sensor in map;
-    auto val = make_unique<Sensor*>(std::move(sensor));
-    //delete sensor;
+    auto val = make_unique<Sensor>(*sensor);
     // store it in map, and return the key if inserted, else -1
     return (this->sensors.insert(std::make_pair(key,std::move(val))).second)?key:-1;
 }
@@ -59,7 +58,7 @@ int Building::addSensor(int floor, Sensor* sensor){
 Sensor* Building::getSensor(int floor, int id){
 
     int key = this->encodeID(floor,id);
-    return *this->sensors[key].get();
+    return this->sensors[key].get();
 }
 
 // Zerstört den Sensor im angegebenen Stockwerk mit der angegebenen ID
@@ -78,7 +77,7 @@ void Building::checkSensors(){
     for(const auto&[key,sensor]:this->sensors){
         try{
             // Check all sensors
-            (*sensor)->checkSensor();
+            sensor->checkSensor();
         }catch(ErrorDetectedException& e){ // error detected
             // Error is ok, just pass it on.
             throw ErrorDetectedException(e);
