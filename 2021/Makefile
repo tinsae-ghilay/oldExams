@@ -6,27 +6,31 @@ files = $(wildcard *.cpp)
 # so long as files are in the same folder
 # then substitute the .cpp part of $(files) with .o
 objects = $(patsubst %.cpp,%.o,$(files))
-
+# executable file
+BIN = Robot
 #g++ commands
 # g++
-CPPFLAG = g++
+CFLAG = g++
 # C++ version to compile to
-CVFLAG = -std=c++23
+VFLAG = -std=c++23
 # error handling flags
-CEFLAG = -Wall -Werror
+WFLAG = -Wall -Werror
 
 # rules
-all: robot
+all: $(BIN)
 
 # create executable from object files
-robot: $(objects)
-	$(CPPFLAG) $(CVFLAG) $(CEFLAG) -g -o robot $(objects)
+$(BIN): $(objects)
+	$(CFLAG) $(VFLAG) $(WFLAG) -g -o $(BIN) $(objects)
 
 # create object files from source files
 %.o: %.cpp
-	$(CPPFLAG) $(CVFLAG) $(CEFLAG) -g -c $< -o $@
+	$(CFLAG) $(VFLAG) $(WFLAG) -g -c $< -o $@
 
-# clean 
+# run the program
+run: $(BIN)
+	./${BIN}
+# clean
 .PHONY:clean
 clean:
-	rm -f robot *.o
+	rm -f $(BIN) *.o
