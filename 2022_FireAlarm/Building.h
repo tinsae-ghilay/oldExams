@@ -22,7 +22,7 @@ private:
     int floors;
     vector<unique_ptr<Siren>> sirens;
     unique_ptr<Siren>alarm;
-    map<int, unique_ptr<Sensor*>> sensors;
+    map<int, unique_ptr<Sensor>> sensors;
 
     void installSirens();
     int encodeID(int floor, int id);
