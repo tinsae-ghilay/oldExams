@@ -104,7 +104,7 @@ void Robot::eventLoop(){
 
                 // stop motor- >speed to 0.
                 cout<<"EMERGENCY STOP!!! ";
-                this->motor->setSpeed(0);
+                this->motor->emergencyBreak();
                 cout << e.what()<<endl;
 
                 // 3 Iterationen der Event-Loop -> implemented here internally by updating i
