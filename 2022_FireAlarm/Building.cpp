@@ -91,9 +91,13 @@ void Building::checkSensors()
             // Error is ok, just pass it on.
             throw ErrorDetectedException(e);
         }catch(FireDetectedException& e){ // fire detected
+
+// Reporting error
             cout <<"Floor "<< key/10 <<" : "<<e.what() <<endl;
+// turning Siren of that floor on.
             cout <<"Floor "<< key/10 <<" : ";
             this->sirens[key/10]->switchOn();
+// turning external Siren on.
             cout <<"Gate : ";
             this->alarm->switchOn();
             throw FireDetectedException(e);
