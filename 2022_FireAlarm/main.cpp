@@ -8,7 +8,7 @@ int main(){
 
     int floor = 10;
     auto building = new Building(floor);
-
+    cout << "installing sensors";
     for(int i = 0; i < floor;i++){
         // adding sensors to building. building will handle their lifecycle
         try{ // in case creating pointers on heap gives us exception
@@ -41,7 +41,7 @@ int main(){
 
         i++;
     }
-
     delete building;
+    return 0;
 
 }

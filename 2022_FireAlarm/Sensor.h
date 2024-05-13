@@ -16,13 +16,14 @@
 class Sensor {
 public:
 
-    virtual ~Sensor()=default;
+    Sensor() = default;
+    inline virtual ~Sensor()=default;
 
     // Überprüft den Sensoren. Wirft 'FireAlarmException'
-    virtual void checkSensor(){};
+    inline virtual void checkSensor(){};
 
     // Gibt den Typ des konkreten Sensors zurück
-    virtual int getType() = 0;
+    virtual int getType() const = 0;
 };
 
 // gets a pseudo random number between two integers.
@@ -39,7 +40,10 @@ class SmokeDetector : public Sensor
 {
 public:
 
+    using ::Sensor::Sensor;
+
     inline ~SmokeDetector() override = default;
+
     inline void checkSensor() override
     {
         int rnd = getRandom();
@@ -55,7 +59,7 @@ public:
         }
 
     }
-    inline int getType() override
+    inline int getType() const override
     {
         return 1;
     }
@@ -66,6 +70,7 @@ class InfraredSensor : public Sensor
 {
 public:
 
+    using ::Sensor::Sensor;
     inline ~InfraredSensor() override = default;
     inline void checkSensor() override
     {
@@ -83,7 +88,7 @@ public:
         }
 
     }
-    inline int getType() override
+    inline int getType() const override
     {
         return 2;
     }

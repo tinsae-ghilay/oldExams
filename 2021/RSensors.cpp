@@ -5,7 +5,6 @@
 # include "RSensors.h"
 # include <iostream>
 # include "RobotException.h"
-#include "../2022_FireAlarm/Sensor.h"
 
 
 using namespace std;
