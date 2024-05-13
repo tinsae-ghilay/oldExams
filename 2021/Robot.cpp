@@ -22,14 +22,14 @@ Robot::~Robot(){
 }
 
 // adds sensors to Robot
-int Robot::addSensor(Sensor* sensor){
+int Robot::addSensor(RSensor* sensor){
     this->id_++;
     this->sensors.insert(std::make_pair(this->id_, sensor));
     return this->id_;
 }
 
 // getter for sensors
-Sensor* Robot::getSensor(int id){
+RSensor* Robot::getSensor(int id){
     if(this->sensors[id]){
         return this->sensors[id];
     }else{
@@ -55,6 +55,8 @@ void Robot::deleteSensor(int id){
  */
 void Robot::eventLoop(){
     int i = 0;
+
+    // anfangs laufzeit
     time_t start = time(nullptr);
 
     while(i < 30){
@@ -74,7 +76,7 @@ void Robot::eventLoop(){
                     state = s_state;
                 }
 
-                // reset() wird für jeden fehlerhaften Sensor nur einmal pro Iteration ausgeführt
+                // reset() wird für jeden fehlerhaften RSensor nur einmal pro Iteration ausgeführt
                 if (sensor->getErrorState()) {
                     cout << "Resetting : ";
                     // reset motor
@@ -86,7 +88,7 @@ void Robot::eventLoop(){
              * Wenn einer der Sensoren eine InternalErrorException wirft,
              * dann soll aus Sicherheitsgründen auf die niedrigste Geschwindigkeit geschaltet werden.
              * Die niedrigste Geschwindigkeit soll so lange aufrechterhalten werden,
-             * bis der Sensor erfolgreich mit reset() zurückgesetzt werden konnte. → sehe oben.
+             * bis der RSensor erfolgreich mit reset() zurückgesetzt werden konnte. → sehe oben.
              * bei Geschwindigkeitsreduktion aufgrund interner Sensorfehler
              * kann es aber immer noch zur Notabschaltung aufgrund kritischer Gefahr kommen!
              */
@@ -95,7 +97,7 @@ void Robot::eventLoop(){
                 state = 100; // gefahr = 100 wird auf niedriger geschwindigkeit wirken.
             }
             /*
-             * Wenn ein Sensor eine CriticalDangerException wirft, dann soll sofort
+             * Wenn ein RSensor eine CriticalDangerException wirft, dann soll sofort
              * (d.h. das Abfragen der weiteren Sensoren wird an dieser Stelle unterbrochen)
              * ein Notstopp der Motoren eingeleitet werden. Nach 3 Iterationen der Event-Loop
              * soll dann wieder zum Normalzustand zurückgekehrt werden.
@@ -127,8 +129,9 @@ void Robot::eventLoop(){
         cout << "current speed = "<< this->motor->getSpeed() << " RPM"<< endl;
         i++;
     }
-    // ending test
+    // beendung der test
     this->motor->setSpeed(0);
+    // end des laufzeit
     time_t end = time(nullptr);
 
     cout << "Test done in "<<end-start<< " seconds" << endl;

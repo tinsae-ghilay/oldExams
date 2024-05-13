@@ -4,10 +4,10 @@
 
 #ifndef ROBOT_H
 #define ROBOT_H
-# include "Sensors.h"
+# include "RSensors.h"
 # include <map>
 # include "RobotException.h"
-#include <unistd.h>
+# include <unistd.h>
 # include "Motor.h"
 # include <memory>
 
@@ -16,12 +16,12 @@ class Robot {
 private:
     Motor* motor;
     int id_;
-    std::map<int,Sensor*> sensors;
+    std::map<int,RSensor*> sensors;
     Robot();
 public:
     ~Robot();
-    int addSensor(Sensor* sensor);
-    Sensor* getSensor(int id);
+    int addSensor(RSensor* sensor);
+    RSensor* getSensor(int id);
     void deleteSensor(int id);
     void eventLoop();
 
