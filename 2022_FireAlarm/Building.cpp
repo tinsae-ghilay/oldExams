@@ -92,12 +92,12 @@ void Building::checkSensors()
             throw ErrorDetectedException(e);
         }catch(FireDetectedException& e){ // fire detected
 
-// Reporting error
+            // Reporting error
             cout <<"Floor "<< key/10 <<" : "<<e.what() <<endl;
-// turning Siren of that floor on.
+            // turning Siren of that floor on.
             cout <<"Floor "<< key/10 <<" : ";
             this->sirens[key/10]->switchOn();
-// turning external Siren on.
+            // turning external Siren on.
             cout <<"Gate : ";
             this->alarm->switchOn();
             throw FireDetectedException(e);
