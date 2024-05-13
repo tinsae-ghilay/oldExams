@@ -69,3 +69,8 @@ Motor *Motor::getInstance() {
     }
 }
 
+// nothing fancy just setting speed to 0
+void Motor::emergencyBreak() {
+    this->speed_ = 0;
+}
+
