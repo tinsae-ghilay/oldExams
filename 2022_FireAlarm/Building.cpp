@@ -55,8 +55,8 @@ int Building::addSensor(int floor, Sensor* sensor)
     int key = this->encodeID(floor,sensor->getType());
     // unique pointer to store sensor in map;
     this->sensors[key] = unique_ptr<Sensor>(sensor);
-    //delete sensor;
-    // store it in map, and return the key if inserted, else -1
+   
+    // store it in map, and return the key
     return key;
 }
 
