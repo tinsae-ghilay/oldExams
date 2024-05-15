@@ -5,10 +5,8 @@
 # include "machine.h"
 # include "product.h"
 # include <random>
-# include <memory>
 # include "FactoryException.h"
 
-Machine::Machine() = default;
 Machine::~Machine() = default;
 void Machine::tick(){};
 /*
@@ -17,61 +15,66 @@ void Machine::tick(){};
  * die Fabrik. Mithilfe dieser Methode kann die entsprechende Referenz der Maschine in
  * der addMachine()-Methode übergeben werden.
  */
-void Machine::setFactory(Factory* f){
+void Machine::setFactory(Factory* f)
+{
     this->factory = f;
-};
+}
 
 /*
-Es gibt zwei konkrete Maschinen:
-•MachineProductA:
-▪ Produziert pro Zeitschritt 2 Einheiten von Produkt A.
-▪ Hat eine 15 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
-▪ Hat eine 2 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
+ * MachineProductA:
+ * Produziert pro Zeitschritt 2 Einheiten von Produkt A.
+ * Hat eine 15 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
+ * Hat eine 2 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
  */
-void MachineProductA::tick(){
-    int rnd = random()%100;
-    if(rnd < 15){
+void MachineProductA::tick()
+{
+    int rnd = (int)random()%100;
+    if(rnd < 15){ // 15 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
 
         // throw MachineFailureException
         throw MachineFailureException("Machine Product A: Failure!");
 
-    }else if(rnd > 97){
+    }else if(rnd > 97){ // 2 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
 
         // throw MachineExplosionException
         throw MachineExplosionException("Machine Product A: Exploded!");
+
     }else{
 
-        for(int i = 0; i< 3; i++){
+        // Produziert pro Zeitschritt 2 Einheiten von Produkt A.
+        for(int i = 0; i< 2; i++){
+
+            // dann produkte zu der Fabrik mithilfe der addProduct()-Methode übergeben
             this->factory->addProduct(new ProductA());
         }
-
     }
-
 }
 
 /*
-•MachineProductB
-▪ Produziert pro Zeitschritt 3 Einheiten von Produkt B.
-▪ Hat eine 20 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
-▪ Hat eine 5 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
-*/
-void MachineProductB::tick(){
-    int rnd = random()%100;
-    if(rnd < 20){
+ * MachineProductB
+ * produziert pro Zeitschritt 3 Einheiten von Produkt B.
+ * Hat eine 20 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
+ * Hat eine 5 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
+ */
+void MachineProductB::tick()
+{
+    int rnd = (int)random()%100;
+    if(rnd < 20){ // 20 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
 
         // throw MachineFailureException
         throw MachineFailureException("Machine Product B: Failure!");
 
-    }else if(rnd > 94){
+    }else if(rnd > 94){ // 5 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
 
         // throw MachineExplosionException
         throw MachineExplosionException("Machine Product A: Exploded!");
     }else{
 
+        // Produziert pro Zeitschritt 3 Einheiten von Produkt B.
         for(int i = 0; i< 3; i++){
+
+            // dann produkte zu der Fabrik mithilfe der addProduct()-Methode übergeben
             this->factory->addProduct(new ProductB());
         }
-
     }
-
 }

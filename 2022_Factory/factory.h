@@ -9,6 +9,7 @@
 # include <memory>
 # include "machine.h"
 # include "product.h"
+# include <iterator>
 
 
 class Product;
@@ -30,30 +31,30 @@ private:
 
     unsigned int id_ = 0;
     unsigned int mId =0;
-    map<int, unique_ptr<Product>> products;
-    map<int, unique_ptr<Machine>> machines;
+    map<unsigned int, unique_ptr<Product>> products;
+    map<unsigned int, unique_ptr<Machine>> machines;
 public:
 
     // Fügt eine neue Maschine hinzu. Der Rückgabewert ist
-    //eine ID, die die jeweilige Maschine eindeutig identifiziert.
+    // eine ID, die die jeweilige Maschine eindeutig identifiziert.
     unsigned int addMachine(Machine* m);
     // Gibt die Maschine mit der angegebenen ID zurück.
     Machine* getMachine(unsigned id);
     // Entfernt die Maschine mit der angegebenen ID und gibt
-    //alle damit verbundenen Ressourcen wieder frei.
+    // alle damit verbundenen Ressourcen wieder frei.
     void deleteMachine(unsigned id);
     // Übergibt ein neues Produkt der Fabrik. Die Fabrik muss
-    //dann den Typ des Produkts bestimmen und in das entsprechende Lager einsortieren. Wenn ein
-    //unbekanntes Produkt übergeben wird, dann soll eine MachineFailureException geworfen werden.
+    // dann den Typ des Produkts bestimmen und in das entsprechende Lager einsortieren. Wenn ein
+    // unbekanntes Produkt übergeben wird, dann soll eine MachineFailureException geworfen werden.
     void addProduct(Product* p);
-    // ibt die Anzahl der im Lager vorhandenen Produkte A zurück.
+    // Gibt die Anzahl der im Lager vorhandenen Produkte A zurück.
     unsigned int getProductACount();
     // Gibt die Anzahl der im Lager vorhandenen Produkte B zurück.
     unsigned int getProductBCount();
 
     // Diese Methode implementiert die Zeitschleife.
     // Der Eingabeparameter iterations gibt an, nach wie vielen Iterationen die Zeitschleife abgebrochen
-    //werden soll (0 bedeutet, dass die Schleife nie abgebrochen wird).
+    // werden soll (0 bedeutet, dass die Schleife nie abgebrochen wird).
     void run(unsigned iterations);
 
 };

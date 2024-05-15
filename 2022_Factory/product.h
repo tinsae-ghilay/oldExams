@@ -7,7 +7,7 @@
 
 /*
  * Die Klasse Product ist die Oberklasse aller Produkte und definiert deren öffentliches Interface.
- * */
+ */
 class Product{
 public:
     inline Product() = default;
@@ -16,28 +16,27 @@ public:
 };
 
 
-
+// Product A
+// erbt der BAsis Klasse Product
 class ProductA:public Product{
 public:
 
     using Product::Product;
 
-    // Identifiziert den Produkttypen (Damit die automatischen Tests korrekt
-    //funktionieren
+    // Identifiziert den Produkttypen
     inline int getType() const override{
         return 1;
     }
 };
 
-
-
+// Product B
+// erbt der BAsis Klasse Product
 class ProductB: public Product{
 public:
 
     using Product::Product;
 
-    // Identifiziert den Produkttypen (Damit die automatischen Tests korrekt
-    //funktionieren
+    // Identifiziert den Produkttypen
     inline int getType() const override{
         return 2;
     }

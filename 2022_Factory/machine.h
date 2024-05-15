@@ -8,7 +8,8 @@
 
 /*
  * Die Klasse Machine ist die Oberklasse aller Maschinen und definiert deren öffentliches Interface.
-*/
+ * Es gibt zwei konkrete Maschinen:
+ */
 class Factory;
 
 class Machine {
@@ -17,9 +18,9 @@ protected:
     Factory* factory;
 
 public:
-    Machine();
+
     virtual ~Machine();
-    virtual void tick();
+    virtual void tick() = 0;
     /*
      * Damit eine Maschine ein neu erstelltes Produkt der Fabrik
      * mithilfe der Methode addProdukt() übergeben kann, benötigt die Maschine eine Referenz auf
@@ -31,13 +32,12 @@ public:
 };
 
 
- /*
-Es gibt zwei konkrete Maschinen:
-•MachineProductA:
-▪ Produziert pro Zeitschritt 2 Einheiten von Produkt A.
-▪ Hat eine 15 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
-▪ Hat eine 2 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
-  */
+/*
+ * MachineProductA:
+ * Produziert pro Zeitschritt 2 Einheiten von Produkt A.
+ * Hat eine 15 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
+ * Hat eine 2 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
+ */
 
  class MachineProductA: public Machine{
 
@@ -48,11 +48,11 @@ Es gibt zwei konkrete Maschinen:
  };
 
  /*
-•MachineProductB
-▪ Produziert pro Zeitschritt 3 Einheiten von Produkt B.
-▪ Hat eine 20 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
-▪ Hat eine 5 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
- */
+  * MachineProductB
+  * produziert pro Zeitschritt 3 Einheiten von Produkt B.
+  * Hat eine 20 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
+  * Hat eine 5 % Wahrscheinlichkeit eine MachineExplosionException zu werfen.
+  */
 
  class MachineProductB: public Machine{
 
