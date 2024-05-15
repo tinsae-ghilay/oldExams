@@ -68,7 +68,7 @@ void MachineProductB::tick(){
         throw MachineExplosionException("Machine Product A: Exploded!");
     }else{
 
-        for(int i = 0; i< 3; i++){
+        for(int i = 0; i< 4; i++){
             this->factory->addProduct(new ProductB());
         }
 
