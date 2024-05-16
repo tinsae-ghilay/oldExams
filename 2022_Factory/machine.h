@@ -28,6 +28,7 @@ public:
      * der addMachine()-Methode übergeben werden.
      */
     void setFactory(Factory* f);
+    static int getRandom();
 
 };
 
@@ -44,7 +45,7 @@ public:
  public:
      using Machine::Machine;
 
-     virtual void tick() override;
+     void tick() override;
  };
 
  /*
@@ -59,8 +60,9 @@ public:
  public:
      using Machine::Machine;
 
-     virtual void tick() override;
+     void tick() override;
  };
+
 
 
 

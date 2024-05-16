@@ -28,7 +28,7 @@ void Machine::setFactory(Factory* f)
  */
 void MachineProductA::tick()
 {
-    int rnd = (int)random()%100;
+    int rnd = getRandom();//int rnd = (int)random()%100;
     if(rnd < 15){ // 15 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
 
         // throw MachineFailureException
@@ -58,7 +58,7 @@ void MachineProductA::tick()
  */
 void MachineProductB::tick()
 {
-    int rnd = (int)random()%100;
+    int rnd = getRandom();//(int)random()%100;
     if(rnd < 20){ // 20 % Wahrscheinlichkeit eine MachineFailureException zu werfen.
 
         // throw MachineFailureException
@@ -77,4 +77,15 @@ void MachineProductB::tick()
             this->factory->addProduct(new ProductB());
         }
     }
+}
+
+// generates a random number from a uniform distribution
+// more about this at https://en.cppreference.com/w/cpp/numeric/random/uniform_int_distribution
+
+int Machine::getRandom()
+{
+    random_device device;
+    mt19937 range(device());
+    uniform_int_distribution <mt19937::result_type> dist(0, 100);
+    return (int)dist(range);
 }

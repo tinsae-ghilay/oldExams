@@ -12,10 +12,15 @@
 int main(){
 
 
+    // creating Factory
     auto f = new Factory();
     for(int i = 0; i < 2; i++){
         f->addMachine(new MachineProductA());
         f->addMachine(new MachineProductB());
     }
-    f->run(7);
+    // runs for ten iterations
+    f->run(10);
+
+    // delete when done
+    delete f;
 }

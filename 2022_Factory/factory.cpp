@@ -84,34 +84,41 @@ unsigned int Factory::getProductBCount(){
 void Factory::run(unsigned int iterations){
 
     // 0 bedeutet, dass die Schleife nie abgebrochen wird
-    // I will assume that by this, it means it will continue the loop for the highest possible unsigned int value
-    // decrementing iteration by 1 pre execution
-    // will make iteration have the highest unsigned int value(4294967295) if it is 0 at the beginning
+    // so flip 0 to max unsigned int
+    if(iterations == 0){
+        iterations--;
+    }
 
-    while(--iterations){
-
+    while(iterations--){
+        sleep(1);
+        bool ex = false;
         // we iterate over all available machines
         for(auto & machine : this->machines){
             try{
-                sleep(1);
                 machine.second->tick();
-                std::cout <<"Machine "<< machine.first << " working and factory has now "<<this->getProductACount()<<" product A and "<< this->getProductBCount()<<" product B's "<<std::endl;
             }catch (MachineFailureException &e){
-                std::cout << "Exception caught " << e.what()<<std::endl;
+                std::cout<<"Exception caught " << e.what() <<" Machine Id: "<<machine.first <<std::endl;
+                ex=true;
+                break;
             }catch (MachineExplosionException &e) {
-                std::cout << "Exception caught: " << e.what() << std::endl;
+                std::cout<<"Exception caught: " << e.what() <<" Machine Id: "<<machine.first <<std::endl;
                 this->deleteMachine(machine.first);
+                ex=true;;
 
                 // IMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!
                 // break here very important: without it, we have a segmentation fault!! on long loops
                 break;
             }
         }
+        if(!ex){
+            std::cout <<"Ticking and factory has produced "<<this->getProductACount()<<" product A and "<< this->getProductBCount()<<" product B's "<<std::endl;
+        }
         if(this->machines.empty()){
             std::cout <<"Factory run out of Machines: Closing shop."<<std::endl;
             break;
         }
     }
+    sleep(1);
     std::cout<<std::endl <<"*** Factory simulation ended Bye. ***"<<std::endl<<std::endl;;
 }
 
