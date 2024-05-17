@@ -39,7 +39,8 @@ int Building::encodeID(int floor, int id)
     // assume floor is 0, from our formula, ID for sensor type 1 would be 11, and type 2 = 12
     // if we don't add 1 to floor, it will just be 0*10 + 1 = 1 (not a 2-digit number)
     // for floor 1, type 1 has ID 21 and type 2 has ID 22. we also use that as key for map
-    return (floor+1)*10+id;
+
+    return (id==1)?((floor+1)*100)+(id*10)+(smoke_detectors++):((floor+1)*100)+(id*10)+(infrared_detectors++);
 }
 
 /*
@@ -55,7 +56,6 @@ int Building::addSensor(int floor, Sensor* sensor)
     int key = this->encodeID(floor,sensor->getType());
     // unique pointer to store sensor in map;
     this->sensors[key] = unique_ptr<Sensor>(sensor);
-   
     // store it in map, and return the key
     return key;
 }
@@ -95,8 +95,8 @@ void Building::checkSensors()
             // Reporting error
             cout <<"Floor "<< key/10 <<" : "<<e.what() <<endl;
             // turning Siren of that floor on.
-            cout <<"Floor "<< key/10 <<" : ";
-            this->sirens[key/10]->switchOn();
+            cout <<"Floor "<< key/100 <<" : ";
+            this->sirens[key/100]->switchOn();
             // turning external Siren on.
             cout <<"Gate : ";
             this->alarm->switchOn();

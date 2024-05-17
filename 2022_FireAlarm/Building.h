@@ -19,7 +19,9 @@ using namespace std;
 class Building {
 
 private:
-    int floors;
+    int floors = 0;
+    int smoke_detectors = 0;
+    int infrared_detectors = 0;
     vector<unique_ptr<Siren>> sirens;
     unique_ptr<Siren>alarm;
     map<int, unique_ptr<Sensor>> sensors;
