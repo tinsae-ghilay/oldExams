@@ -6,6 +6,7 @@
 #define CAR_H
 
 # include <random>
+# include "carRentalException.h"
 
 /*
  * Die Klasse Car ist die Oberklasse aller Autos und definiert deren öffentliches Interface.
@@ -15,9 +16,7 @@ class Car {
 
 private:
     int licence_level = 1;
-
 protected:
-    bool is_drivable = true;
     int capacity;
 
 public:
@@ -58,10 +57,13 @@ class VWBus: public Car{
         int rnd = random()%100;
         if(rnd > 94){
             // throw BrokenMotorException
+            throw BrokenMotorException("Car is out of order: Brocken Motor");
         } else if (rnd < 10){
             // throw ElectronicsFaultException
+            throw ElectronicsFaultException(" Car has electronic problems: needs repair");
         }else{
             // dandy
+
         }
     }
 };
