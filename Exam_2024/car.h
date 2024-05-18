@@ -44,6 +44,7 @@ public:
 */
 class VWBus: public Car{
 
+public:
     VWBus(){
         this->capacity = 4;
     }
@@ -73,6 +74,7 @@ class VWBus: public Car{
 */
 class FordFocus: public Car{
 
+public:
     FordFocus(){
         this->capacity = 4;
     }
@@ -106,6 +108,7 @@ class FordFocus: public Car{
  * Ferrari F40 : 1 Passagierplatz: Führerscheinklasse: 3
 */
 class FerrariF40: public Car{
+public:
     FerrariF40(){
         this->capacity = 1;
         this->setLicenceLevel(3);
@@ -121,6 +124,7 @@ class FerrariF40: public Car{
  * Kleinbus : 20 Passagierplätze: Führerscheinklasse: 4
 */
 class Minibus: public Car{
+public:
     Minibus(){
         this->capacity = 20;
         this->setLicenceLevel(4);

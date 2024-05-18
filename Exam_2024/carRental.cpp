@@ -3,6 +3,10 @@
 //
 
 #include "carRental.h"
+# include "carRentalException.h"
+# include <string>
+# include <memory>
+# include <iostream>
 
 
 // Fügt ein neues Auto hinzu. Der Rückgabewert ist eine eindeutige ID, die das Auto identifiziert.
@@ -14,6 +18,7 @@ int CarRental::addCar(Car* car){
         return this->id_;
     } else{
         // InvalideCar provided
+        throw InvalidCarException("Provided car not valid");
     }
 }
 
@@ -24,6 +29,7 @@ Car* CarRental::getCar(int id){
         return this->cars[id].get();
     }else{
         // throw car not found
+        throw UnavailableCarException("Car not available with ID:"+ to_string(id));
     }
 }
 
@@ -33,6 +39,7 @@ void CarRental::deleteCar(int id){
         this->cars.erase(id);
     }else{
         // throw car not found
+        throw UnavailableCarException(" Car not available for deletion");
     }
 }
 /*
@@ -49,6 +56,22 @@ Car* CarRental::rentCar(int licenceType, int passengerCount){
         }
     }
     // throw no car available
+    throw UnavailableCarException("Car not available for rent");
 }
 
-void CarRental::simulate(int rentals){}
+//  Simuliert die angegebene Anzahl an Mietvorgängen.
+//  Die Führerscheinklasse und die Anzahl an Passagieren soll dabei bei jedem Mietvorgang zufällig bestimmt werden.
+void CarRental::simulate(int rentals){
+
+    while(rentals){
+        try {
+            int license = (random()% 4) + 1;
+            int capacity = (random() % 10)+1;
+            auto car = this->rentCar(license,capacity);
+            cout << "car with capacity for "<<car->getPassengerCount()<<" was rented to be driven with license :" <<car->getRequiredDrivingLicence() <<endl;
+        }catch(UnavailableCarException& e){
+            cout << e.what()<<endl;
+        }
+        rentals--;
+    }
+}
