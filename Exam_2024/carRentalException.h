@@ -12,8 +12,8 @@ public:
             : std::runtime_error(msg){}
 };
 
-// thrown when Fire is detected
-// inherits from FireAlarmException
+// thrown when car has motor problems
+// inherits from carRentalException
 class BrokenMotorException : public CarRentalException
 {
 public:
@@ -21,8 +21,8 @@ public:
             CarRentalException(msg){}
 };
 
-// thrown when Fire is detected
-// inherits from FireAlarmException
+// thrown when car has electrical problems
+// inherits from CarRentalException
 class ElectronicsFaultException : public CarRentalException
 {
 public:
@@ -30,8 +30,8 @@ public:
             CarRentalException(msg){}
 };
 
-// thrown when Fire is detected
-// inherits from FireAlarmException
+// thrown when car doesnt meet emission requirements
+// inherits from CarRentalException
 class EmissionsTooDirtyException : public CarRentalException
 {
 public:
