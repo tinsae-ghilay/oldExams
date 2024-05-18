@@ -112,7 +112,7 @@ class FerrariF40: public Car{
 };
 
 /*
- * Kleinbus : 20 Passagierplätze : Führerscheinklasse: 4
+ * Kleinbus : 20 Passagierplätze: Führerscheinklasse: 4
 */
 class Minibus: public Car{
     Minibus(){
@@ -121,9 +121,9 @@ class Minibus: public Car{
     }
 
     /*
-     * Hat eine 15% Wahrscheinlichkeit eine BrokenMotorException zu werfen.
-     * Hat eine 10% Wahrscheinlichkeit eine ElectronicsFaultException zu werfen.
-     * Hat eine 5% Wahrscheinlichkeit eine EmissionsTooDirtyException zu werfen.
+     * Hat eine 15 % Wahrscheinlichkeit eine BrokenMotorException zu werfen.
+     * Hat eine 10 % Wahrscheinlichkeit eine ElectronicsFaultException zu werfen.
+     * Hat eine 5 % Wahrscheinlichkeit eine EmissionsTooDirtyException zu werfen.
      * */
     inline bool checkCar() override{
 
