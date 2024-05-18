@@ -18,7 +18,7 @@ class BrokenMotorException : public CarRentalException
 {
 public:
     inline explicit BrokenMotorException(const std::string& msg):
-            CarRentalException("FIRE DETECTED ON : "+msg){}
+            CarRentalException(msg){}
 };
 
 // thrown when Fire is detected
@@ -27,7 +27,7 @@ class ElectronicsFaultException : public CarRentalException
 {
 public:
     inline explicit ElectronicsFaultException(const std::string& msg):
-            CarRentalException("ERROR DETECTED : "+msg){}
+            CarRentalException(msg){}
 };
 
 // thrown when Fire is detected
@@ -36,6 +36,20 @@ class EmissionsTooDirtyException : public CarRentalException
 {
 public:
     inline explicit EmissionsTooDirtyException(const std::string& msg):
-            CarRentalException("ERROR DETECTED : "+msg){}
+            CarRentalException(msg){}
+};
+
+class InvalidCarException : public CarRentalException
+{
+public:
+    inline explicit InvalidCarException(const std::string& msg):
+            CarRentalException(msg){}
+};
+
+class UnavailableCarException : public CarRentalException
+{
+public:
+    inline explicit UnavailableCarException(const std::string& msg):
+            CarRentalException(msg){}
 };
 #endif //CARRENTALEXCEPTION_H

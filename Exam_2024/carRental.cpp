@@ -28,7 +28,13 @@ Car* CarRental::getCar(int id){
 }
 
 // Entfernt das Auto mit der angegebenen ID und gibt alle damit verbundenen Ressourcen wieder frei.
-void CarRental::deleteCar(int id){}
+void CarRental::deleteCar(int id){
+    if(this->cars[id]){
+        this->cars.erase(id);
+    }else{
+        // throw car not found
+    }
+}
 /*
  * Gibt ein passendes fahrtüchtiges Auto zurück,
  * dass mit der angegebenen Führerscheinklasse gefahren werden darf und mindestens die angegebene Anzahl an Passagieren befördern kann.
@@ -36,6 +42,13 @@ void CarRental::deleteCar(int id){}
  * Das Auto darf auch nicht schon an andere vermietet und muss fahrtüchtig sein. Die Fahrtüchtigkeit wird mit der checkCar()-Objektfunktion überprüft.
  * Falls kein passendes Fahrzeug gefunden werden konnte, soll eine NoCarFoundException geworfen werden.
  * */
-Car* CarRental::rentCar(int licenceType, int passengerCount){}
+Car* CarRental::rentCar(int licenceType, int passengerCount){
+    for(const auto& car: this->cars ){
+        if(car.second->getPassengerCount() >= passengerCount && car.second->getRequiredDrivingLicence() <= licenceType){
+            return car.second.get();
+        }
+    }
+    // throw no car available
+}
 
 void CarRental::simulate(int rentals){}
