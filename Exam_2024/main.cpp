@@ -3,14 +3,19 @@
 //
 
 # include "carRental.h"
-# include "car.h";
+# include "car.h"
 
 int main(){
 
 
     auto shop = new CarRental();
+
     shop->addCar(new VWBus());
-    shop->simulate(10);
+    shop->addCar(new FordFocus());
+    shop->addCar(new FerrariF40());
+    shop->addCar(new Minibus());
+
+    shop->simulate(20);
 
     return 0;
 }

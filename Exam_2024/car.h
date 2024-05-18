@@ -7,6 +7,7 @@
 
 # include <random>
 # include "carRentalException.h"
+# include <string>
 
 /*
  * Die Klasse Car ist die Oberklasse aller Autos und definiert deren öffentliches Interface.
@@ -18,6 +19,8 @@ private:
     int licence_level = 1;
 protected:
     int capacity;
+    std::string model;
+
 
 public:
     // Überprüft die Fahrtüchtigkeit des Autos und gibt true zurück, wenn die Fahrtüchtigkeit gegeben ist.
@@ -37,6 +40,10 @@ public:
         this->licence_level = level;
     }
 
+    std::string getModel()const{
+        return this->model;
+    }
+
 };
 
 /*
@@ -47,6 +54,7 @@ class VWBus: public Car{
 public:
     VWBus(){
         this->capacity = 4;
+        this->model = "VW Bus";
     }
     /*
      * Hat eine 5 % Wahrscheinlichkeit eine BrokenMotorException zu werfen.
@@ -77,6 +85,7 @@ class FordFocus: public Car{
 public:
     FordFocus(){
         this->capacity = 4;
+        this->model = "Ford Focus";
     }
     /*
      * Hat eine 8 % Wahrscheinlichkeit eine BrokenMotorException zu werfen.
@@ -144,11 +153,11 @@ public:
             throw BrokenMotorException("Car is out of order: Brocken Motor");
         }else if(rnd > 4 && rnd < 14 ){
             // // throw ElectronicsFaultException
-            throw ElectronicsFaultException(" Car has electronic problems: needs repair");
+            throw ElectronicsFaultException("Car has electronic problems: needs repair");
 
         } else if (rnd < 5) {
             // throw EmissionsTooDirtyException
-            throw EmissionsTooDirtyException(" Car emitting too much CO2: needs to pass requirements");
+            throw EmissionsTooDirtyException("Car emitting too much CO2: needs to pass requirements");
         }else{
             // dandy
             return true;

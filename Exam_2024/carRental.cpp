@@ -7,6 +7,7 @@
 # include <string>
 # include <memory>
 # include <iostream>
+# include <unistd.h>
 
 
 // Fügt ein neues Auto hinzu. Der Rückgabewert ist eine eindeutige ID, die das Auto identifiziert.
@@ -50,10 +51,14 @@ void CarRental::deleteCar(int id){
  * Falls kein passendes Fahrzeug gefunden werden konnte, soll eine NoCarFoundException geworfen werden.
  * */
 Car* CarRental::rentCar(int licenceType, int passengerCount){
-    for(const auto& car: this->cars ){
-        if(car.second->getPassengerCount() >= passengerCount && car.second->getRequiredDrivingLicence() <= licenceType){
-            return car.second.get();
+    try {
+        for(const auto& car: this->cars ){
+            if(car.second->getPassengerCount() <= passengerCount && car.second->getRequiredDrivingLicence() <= licenceType){
+                return car.second.get();
+            }
         }
+    }catch(CarRentalException & e){
+        throw e;
     }
     // throw no car available
     throw UnavailableCarException("Car not available for rent");
@@ -64,12 +69,17 @@ Car* CarRental::rentCar(int licenceType, int passengerCount){
 void CarRental::simulate(int rentals){
 
     while(rentals){
+        sleep(1);
         try {
             int license = (random()% 4) + 1;
             int capacity = (random() % 10)+1;
             auto car = this->rentCar(license,capacity);
-            cout << "car with capacity for "<<car->getPassengerCount()<<" was rented to be driven with license :" <<car->getRequiredDrivingLicence() <<endl;
-        }catch(UnavailableCarException& e){
+
+            if(car->checkCar()) {
+                cout << "car with capacity for " << car->getPassengerCount()
+                     << " was rented to be driven with license :" << car->getRequiredDrivingLicence() << endl;
+            }
+        }catch(CarRentalException& e){
             cout << e.what()<<endl;
         }
         rentals--;
