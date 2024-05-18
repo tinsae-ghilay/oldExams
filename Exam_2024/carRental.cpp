@@ -53,7 +53,8 @@ void CarRental::deleteCar(int id){
 Car* CarRental::rentCar(int licenceType, int passengerCount){
     try {
         for(const auto& car: this->cars ){
-            if(car.second->getPassengerCount() <= passengerCount && car.second->getRequiredDrivingLicence() <= licenceType){
+            car.second->checkCar();
+            if(!car.second->isRented() && car.second->getPassengerCount()>=passengerCount && car.second->getRequiredDrivingLicence() <= licenceType){
                 return car.second.get();
             }
         }
@@ -61,7 +62,8 @@ Car* CarRental::rentCar(int licenceType, int passengerCount){
         throw e;
     }
     // throw no car available
-    throw UnavailableCarException("Car not available for rent");
+    throw UnavailableCarException("no rent car available for "+
+    to_string(passengerCount)+ "people that can be driven with licence "+to_string(licenceType));
 }
 
 //  Simuliert die angegebene Anzahl an Mietvorgängen.
@@ -72,13 +74,13 @@ void CarRental::simulate(int rentals){
         sleep(1);
         try {
             int license = (random()% 4) + 1;
-            int capacity = (random() % 10)+1;
+            int capacity = (random() % 20)+1;
             auto car = this->rentCar(license,capacity);
+            car->setRented(true);
 
-            if(car->checkCar()) {
-                cout << "car with capacity for " << car->getPassengerCount()
+            cout << car->getModel() <<" with capacity for " << car->getPassengerCount()
                      << " was rented to be driven with license :" << car->getRequiredDrivingLicence() << endl;
-            }
+
         }catch(CarRentalException& e){
             cout << e.what()<<endl;
         }

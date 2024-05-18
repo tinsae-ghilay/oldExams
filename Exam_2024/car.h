@@ -17,6 +17,7 @@ class Car {
 
 private:
     int licence_level = 1;
+    bool rented_;
 protected:
     int capacity;
     std::string model;
@@ -42,6 +43,12 @@ public:
 
     std::string getModel()const{
         return this->model;
+    }
+    bool isRented()const{
+        return this->rented_;
+    }
+    void setRented(bool rented){
+        this->rented_ = rented;
     }
 
 };
@@ -69,7 +76,7 @@ public:
             throw BrokenMotorException("Car is out of order: Brocken Motor");
         } else if (rnd < 10){
             // throw ElectronicsFaultException
-            throw ElectronicsFaultException(" Car has electronic problems: needs repair");
+            throw ElectronicsFaultException("Car has electronic problems: needs repair");
         }else{
             // dandy
             return true;
@@ -101,11 +108,11 @@ public:
             throw BrokenMotorException("Car is out of order: Brocken Motor");
         }else if(rnd > 14 && rnd < 21 ){
                 // throw ElectronicsFaultException
-            throw ElectronicsFaultException(" Car has electronic problems: needs repair");
+            throw ElectronicsFaultException("Car has electronic problems: needs repair");
 
         } else if (rnd < 15) {
             // throw EmissionsTooDirtyException
-            throw EmissionsTooDirtyException(" Car emitting too much CO2: needs to pass requirements");
+            throw EmissionsTooDirtyException("Car emitting too much CO2: needs to pass requirements");
         }else{
             // dandy
             return true;
@@ -121,6 +128,7 @@ public:
     FerrariF40(){
         this->capacity = 1;
         this->setLicenceLevel(3);
+        this->model = "Ferrari";
     }
 
     // ein Ferrari kann nicht kaputtgehen, daher kommt es bei diesem Fahrzeug zu keiner Exception.
@@ -137,6 +145,7 @@ public:
     Minibus(){
         this->capacity = 20;
         this->setLicenceLevel(4);
+        this->model = "Minibus";
     }
 
     /*

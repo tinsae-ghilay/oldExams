@@ -28,7 +28,6 @@ public:
     void deleteCar(int id);
     Car* rentCar(int licenceType, int passengerCount);
     void simulate(int rentals);
-
 };
 
 
