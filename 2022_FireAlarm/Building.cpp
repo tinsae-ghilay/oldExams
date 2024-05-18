@@ -65,14 +65,22 @@ Sensor* Building::getSensor(int floor, int id)
 {
 
     int key = this->encodeID(floor,id);
-    return this->sensors[key].get();
+    if(this->sensors[key].get()) {
+        return this->sensors[key].get();
+    }else{
+        throw FireAlarmException("Sensor not found");
+    }
 }
 
 // Zerstört den Sensor im angegebenen Stockwerk mit der angegebenen ID
 void Building::deleteSensor(int floor, int id)
 {
     int key = this->encodeID(floor,id);
-    this->sensors.erase(key);
+    try{
+        this->sensors.erase(key);
+    }catch(...){
+        throw FireAlarmException("Sensor not found");
+    }
 }
 
 /*
@@ -93,7 +101,7 @@ void Building::checkSensors()
         }catch(FireDetectedException& e){ // fire detected
 
             // Reporting error
-            cout <<"Floor "<< key/10 <<" : "<<e.what() <<endl;
+            cout <<"Floor "<< key/100 <<" : "<<e.what() <<endl;
             // turning Siren of that floor on.
             cout <<"Floor "<< key/100 <<" : ";
             this->sirens[key/100]->switchOn();

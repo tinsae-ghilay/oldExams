@@ -14,13 +14,15 @@ int main(){
         try{ // in case creating pointers on heap gives us exception
             building->addSensor(i,new SmokeDetector());
             building->addSensor(i,new InfraredSensor());
+            building->addSensor(i,new InfraredSensor());
+            building->addSensor(i,new SmokeDetector());
         }catch(...){
             cout << "error while installing sensors to building"<<endl;
         }
     }
 
     int i = 0;
-    while(i < 10){
+    while(i < 20){
         sleep(1);
         try{
             building->checkSensors();
@@ -36,10 +38,18 @@ int main(){
             cout << endl;
             building->cancelAlarm();
         }catch(ErrorDetectedException& e){
+
             cout << e.what()<< endl;
         }
 
+
+
         i++;
+    }
+    try {
+        cout << "getting sensor :"<< building->getSensor(200,10)->getType() << endl;
+    }catch(FireAlarmException& e){
+        cout <<e.what() <<endl;
     }
     delete building;
     return 0;
