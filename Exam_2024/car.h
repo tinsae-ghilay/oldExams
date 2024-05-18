@@ -63,7 +63,7 @@ class VWBus: public Car{
             throw ElectronicsFaultException(" Car has electronic problems: needs repair");
         }else{
             // dandy
-
+            return true;
         }
     }
 };
@@ -87,13 +87,17 @@ class FordFocus: public Car{
         if(rnd > 91) {
 
             // throw BrokenMotorException
+            throw BrokenMotorException("Car is out of order: Brocken Motor");
         }else if(rnd > 14 && rnd < 21 ){
-                // // throw ElectronicsFaultException
+                // throw ElectronicsFaultException
+            throw ElectronicsFaultException(" Car has electronic problems: needs repair");
 
         } else if (rnd < 15) {
             // throw EmissionsTooDirtyException
+            throw EmissionsTooDirtyException(" Car emitting too much CO2: needs to pass requirements");
         }else{
             // dandy
+            return true;
         }
     }
 };
@@ -133,13 +137,17 @@ class Minibus: public Car{
         if(rnd > 84) {
 
             // throw BrokenMotorException
+            throw BrokenMotorException("Car is out of order: Brocken Motor");
         }else if(rnd > 4 && rnd < 14 ){
             // // throw ElectronicsFaultException
+            throw ElectronicsFaultException(" Car has electronic problems: needs repair");
 
         } else if (rnd < 5) {
             // throw EmissionsTooDirtyException
+            throw EmissionsTooDirtyException(" Car emitting too much CO2: needs to pass requirements");
         }else{
             // dandy
+            return true;
         }
     }
 };
