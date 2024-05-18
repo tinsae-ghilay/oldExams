@@ -63,7 +63,7 @@ Car* CarRental::rentCar(int licenceType, int passengerCount){
     }
     // throw no car available
     throw UnavailableCarException("no rent car available for "+
-    to_string(passengerCount)+ "people that can be driven with licence "+to_string(licenceType));
+    to_string(passengerCount)+ " people that can be driven with licence "+to_string(licenceType));
 }
 
 //  Simuliert die angegebene Anzahl an Mietvorgängen.

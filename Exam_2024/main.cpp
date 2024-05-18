@@ -15,6 +15,7 @@ int main(){
     shop->addCar(new FerrariF40());
     shop->addCar(new Minibus());
     shop->simulate(20);
+    delete shop;
 
     return 0;
 }

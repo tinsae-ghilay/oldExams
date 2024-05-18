@@ -17,7 +17,7 @@ class Car {
 
 private:
     int licence_level = 1;
-    bool rented_;
+    bool rented_ = false;
 protected:
     int capacity;
     std::string model;
