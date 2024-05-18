@@ -39,6 +39,8 @@ public:
             CarRentalException(msg){}
 };
 
+// thrown when provided with invalid object
+// inherits from carRentalException
 class InvalidCarException : public CarRentalException
 {
 public:
@@ -46,6 +48,9 @@ public:
             CarRentalException(msg){}
 };
 
+
+// thrown when car is not available
+// inherits from carRentalException
 class UnavailableCarException : public CarRentalException
 {
 public:
