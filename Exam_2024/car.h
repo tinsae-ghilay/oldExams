@@ -161,7 +161,7 @@ public:
             // throw BrokenMotorException
             throw BrokenMotorException("Car is out of order: Brocken Motor");
         }else if(rnd > 4 && rnd < 14 ){
-            // // throw ElectronicsFaultException
+            // throw ElectronicsFaultException
             throw ElectronicsFaultException("Car has electronic problems: needs repair");
 
         } else if (rnd < 5) {
